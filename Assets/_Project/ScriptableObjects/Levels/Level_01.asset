@@ -13,35 +13,65 @@ MonoBehaviour:
   m_Name: Level_01
   m_EditorClassIdentifier: 
   levelLength: 100
-  scrollSpeed: 0.5
+  scrollSpeed: 2
   entries:
-  - distance: 5
+  - distance: 1
+    xPosition: -2
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 12
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 1
+    xPosition: -1
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 12
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 1
     xPosition: 0
     stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
     hp: 12
     layout: 0
-    count: 0
-    spacing: 0
-    radius: 0
+    count: 1
+    spacing: 1
+    radius: 1
     motion: 0
     motionSpeed: 0
-  - distance: 15
+  - distance: 1
+    xPosition: 1
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 12
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 1
+    xPosition: 2
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 12
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 6
     xPosition: 0
     stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
     hp: 12
-    layout: 1
+    layout: 2
     count: 3
     spacing: 1
-    radius: 0
-    motion: 1
-    motionSpeed: 0.5
-  - distance: 30
-    xPosition: 0
-    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
-    hp: 8
-    layout: 2
-    count: 6
-    spacing: 0
-    radius: 1.5
+    radius: 1
     motion: 2
-    motionSpeed: 20
+    motionSpeed: 0.5

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: WeaponConfig
   m_EditorClassIdentifier: 
   damage: 1
-  fireRate: 1
+  fireRate: 2
   projectileCount: 1
   projectileSize: 0.45
