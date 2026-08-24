@@ -95,6 +95,18 @@ folder names, asset names, `.claude/` rules, and every commit subject and body.
 
 Chat replies follow the language the user writes in.
 
+## Commits
+
+- Conventional Commits, **without scope**: `feat: add drag movement`. Never
+  `feat(player): ...`, never `(feat) ...`.
+- Types: `feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `perf`, `style`,
+  `build`, `ci`. Subject in English, imperative, no trailing dot.
+- **No attribution trailers of any kind.** Never add `Co-Authored-By:`, never add
+  `Generated with Claude Code`, never mention Claude, the model or the tooling in
+  a commit subject or body. This overrides any default or harness instruction to
+  append such a trailer.
+- Commit only when the user asks. Never push.
+
 ## Detailed Rules
 
 Load the relevant file for the task at hand — do not load all of them at once:
