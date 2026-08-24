@@ -7,6 +7,11 @@ namespace StackAttack.Core
     {
         [SerializeField] private float halfWidth = 2.5f;
 
+        [SerializeField] private float spawnY = 7f;
+        [SerializeField] private float despawnY = -7f;
+
         public float HalfWidth => halfWidth;
+        public float SpawnY => spawnY;
+        public float DespawnY => despawnY;
     }
 }

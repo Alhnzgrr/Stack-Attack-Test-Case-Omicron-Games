@@ -1,7 +1,7 @@
 {
     "name": "App",
     "rootNamespace": "StackAttack.App",
-    "references": ["Core", "Player", "VContainer", "UniTask"],
+    "references": ["Core", "Player", "StackEnemy", "Level", "VContainer", "UniTask"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
