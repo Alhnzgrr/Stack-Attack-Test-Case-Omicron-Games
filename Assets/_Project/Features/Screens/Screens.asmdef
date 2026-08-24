@@ -1,0 +1,14 @@
+{
+    "name": "Screens",
+    "rootNamespace": "StackAttack.Screens",
+    "references": ["Core", "VContainer", "UniTask", "UnityEngine.UI", "Unity.TextMeshPro"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

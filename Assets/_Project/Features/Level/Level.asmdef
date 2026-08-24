@@ -1,0 +1,14 @@
+{
+    "name": "Level",
+    "rootNamespace": "StackAttack.Level",
+    "references": ["Core", "VContainer", "UniTask"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
