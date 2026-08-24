@@ -1,0 +1,14 @@
+{
+    "name": "App",
+    "rootNamespace": "StackAttack.App",
+    "references": ["Core", "Player", "VContainer", "UniTask"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
