@@ -29,7 +29,12 @@ namespace StackAttack.Player
         // so the same swipe covers the same playfield distance on any resolution.
         public void Tick(float normalizedDragDelta, float deltaTime)
         {
-            var worldDelta = normalizedDragDelta * _halfWidth * 2f * _config.DragSensitivity;
+            // A paused frame has nothing to integrate, and SmoothDamp divides by
+            // deltaTime internally, which would poison the state with NaN.
+            if (deltaTime <= 0f)
+                return;
+
+            float worldDelta = normalizedDragDelta * _halfWidth * 2f * _config.DragSensitivity;
 
             _targetX = Mathf.Clamp(_targetX + worldDelta, -_halfWidth, _halfWidth);
             _currentX = Mathf.SmoothDamp(
@@ -47,8 +52,8 @@ namespace StackAttack.Player
         // own as soon as the player stops chasing the finger.
         private void UpdateTilt(float deltaTime)
         {
-            var normalizedSpeed = Mathf.Clamp(_velocity / _config.TiltSpeedReference, -1f, 1f);
-            var desiredTilt = -normalizedSpeed * _config.MaxTiltAngle;
+            float normalizedSpeed = Mathf.Clamp(_velocity / _config.TiltSpeedReference, -1f, 1f);
+            float desiredTilt = -normalizedSpeed * _config.MaxTiltAngle;
 
             _tiltAngle = Mathf.SmoothDamp(
                 _tiltAngle,

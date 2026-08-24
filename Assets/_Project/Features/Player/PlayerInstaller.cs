@@ -1,3 +1,4 @@
+using StackAttack.Core;
 using VContainer;
 using VContainer.Unity;
 
@@ -5,18 +6,26 @@ namespace StackAttack.Player
 {
     public class PlayerInstaller : IInstaller
     {
-        private readonly PlayerConfig _config;
+        private readonly PlayerConfig _playerConfig;
+        private readonly WeaponConfig _weaponConfig;
+        private readonly HealthConfig _healthConfig;
 
-        public PlayerInstaller(PlayerConfig config)
+        public PlayerInstaller(PlayerConfig playerConfig, WeaponConfig weaponConfig, HealthConfig healthConfig)
         {
-            _config = config;
+            _playerConfig = playerConfig;
+            _weaponConfig = weaponConfig;
+            _healthConfig = healthConfig;
         }
 
         public void Install(IContainerBuilder builder)
         {
-            builder.RegisterInstance(_config);
-            builder.Register<IDragInput, PointerDragInput>(Lifetime.Singleton);
+            builder.RegisterInstance(_playerConfig);
+            builder.RegisterInstance(_weaponConfig.CreateStats());
+            builder.RegisterInstance(_healthConfig);
+            builder.Register<IPointerInput, PointerInput>(Lifetime.Singleton);
             builder.RegisterComponentInHierarchy<PlayerMovementBehaviour>();
+            builder.RegisterComponentInHierarchy<PlayerWeaponBehaviour>();
+            builder.RegisterComponentInHierarchy<PlayerHealthBehaviour>();
         }
     }
 }

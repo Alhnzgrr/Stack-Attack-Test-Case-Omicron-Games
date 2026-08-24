@@ -1,7 +1,7 @@
 {
     "name": "Player",
     "rootNamespace": "StackAttack.Player",
-    "references": ["Core", "VContainer", "UniTask", "Unity.InputSystem"],
+    "references": ["Core", "VContainer", "UniTask"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

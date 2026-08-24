@@ -10,12 +10,14 @@ namespace StackAttack.App
     {
         [SerializeField] private PlayfieldConfig playfieldConfig;
         [SerializeField] private PlayerConfig playerConfig;
+        [SerializeField] private WeaponConfig weaponConfig;
+        [SerializeField] private HealthConfig healthConfig;
 
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterInstance(playfieldConfig);
 
-            new PlayerInstaller(playerConfig).Install(builder);
+            new PlayerInstaller(playerConfig, weaponConfig, healthConfig).Install(builder);
         }
     }
 }

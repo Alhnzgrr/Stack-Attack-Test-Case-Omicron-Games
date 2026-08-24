@@ -1,7 +1,7 @@
 {
     "name": "StackEnemy",
     "rootNamespace": "StackAttack.StackEnemy",
-    "references": ["Core", "VContainer", "UniTask"],
+    "references": ["Core", "VContainer", "UniTask", "Unity.TextMeshPro"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

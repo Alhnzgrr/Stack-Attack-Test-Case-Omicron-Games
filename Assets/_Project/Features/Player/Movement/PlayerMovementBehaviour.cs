@@ -8,21 +8,21 @@ namespace StackAttack.Player
     {
         [SerializeField] private Transform body;
 
-        private IDragInput _dragInput;
+        private IPointerInput _pointerInput;
         private PlayerMovement _movement;
 
         [Inject]
-        public void Construct(IDragInput dragInput, PlayerConfig config, PlayfieldConfig playfield)
+        public void Construct(IPointerInput pointerInput, PlayerConfig config, PlayfieldConfig playfield)
         {
-            _dragInput = dragInput;
+            _pointerInput = pointerInput;
             _movement = new PlayerMovement(config, playfield.HalfWidth, transform.position.x);
         }
 
         private void Update()
         {
-            _movement.Tick(_dragInput.DeltaPixels / Screen.width, Time.deltaTime);
+            _movement.Tick(_pointerInput.DeltaPixels / Screen.width, Time.deltaTime);
 
-            var position = transform.position;
+            Vector3 position = transform.position;
             position.x = _movement.CurrentX;
             transform.position = position;
 
