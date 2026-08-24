@@ -15,7 +15,7 @@ MonoBehaviour:
   levelLength: 100
   scrollSpeed: 2
   entries:
-  - distance: 1
+  - distance: 2
     xPosition: -2
     stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
     hp: 12
@@ -25,7 +25,7 @@ MonoBehaviour:
     radius: 1
     motion: 0
     motionSpeed: 0
-  - distance: 1
+  - distance: 2
     xPosition: -1
     stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
     hp: 12
@@ -45,7 +45,7 @@ MonoBehaviour:
     radius: 1
     motion: 0
     motionSpeed: 0
-  - distance: 1
+  - distance: 2
     xPosition: 1
     stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
     hp: 12
@@ -55,7 +55,7 @@ MonoBehaviour:
     radius: 1
     motion: 0
     motionSpeed: 0
-  - distance: 1
+  - distance: 2
     xPosition: 2
     stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
     hp: 12
@@ -65,13 +65,13 @@ MonoBehaviour:
     radius: 1
     motion: 0
     motionSpeed: 0
-  - distance: 6
+  - distance: 4
     xPosition: 0
     stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
     hp: 12
     layout: 2
-    count: 3
+    count: 6
     spacing: 1
     radius: 1
     motion: 2
-    motionSpeed: 0.5
+    motionSpeed: 30
