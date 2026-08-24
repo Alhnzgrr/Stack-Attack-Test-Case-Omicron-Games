@@ -11,21 +11,48 @@ namespace StackAttack.Player
         [SerializeField] private GameObject shield;
 
         private PlayerHealth _health;
+        private GameStateMachine _state;
 
         [Inject]
-        public void Construct(HealthConfig config)
+        public void Construct(PlayerHealth health, GameStateMachine state)
         {
-            _health = new PlayerHealth(config.MaxHealth, config.InvulnerabilityDuration);
+            _health = health;
+            _state = state;
+        }
+
+        private void Start()
+        {
+            _state.Changed += OnStateChanged;
+        }
+
+        private void OnDestroy()
+        {
+            _state.Changed -= OnStateChanged;
+        }
+
+        private void OnStateChanged(GameState state)
+        {
+            if (state == GameState.Playing)
+                _health.Restore();
         }
 
         private void Update()
         {
+            if (_state.Current != GameState.Playing)
+            {
+                shield.SetActive(false);
+                return;
+            }
+
             _health.Tick(Time.deltaTime);
             shield.SetActive(_health.IsInvulnerable);
         }
 
         private void OnTriggerStay2D(Collider2D other)
         {
+            if (_state.Current != GameState.Playing)
+                return;
+
             if (!other.TryGetComponent(out IHazard hazard))
                 return;
 
@@ -33,12 +60,7 @@ namespace StackAttack.Player
                 return;
 
             if (_health.IsDead)
-                Die();
-        }
-
-        private void Die()
-        {
-            Time.timeScale = 0f;
+                _state.Set(GameState.Lost);
         }
     }
 }

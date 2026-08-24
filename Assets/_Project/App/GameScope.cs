@@ -2,6 +2,7 @@ using StackAttack.Core;
 using StackAttack.Level;
 using StackAttack.Persistence;
 using StackAttack.Player;
+using StackAttack.Screens;
 using StackAttack.StackEnemy;
 using UnityEngine;
 using VContainer;
@@ -21,11 +22,13 @@ namespace StackAttack.App
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterInstance(playfieldConfig);
+            builder.RegisterInstance(new GameStateMachine());
 
             new PlayerInstaller(playerConfig, weaponConfig, healthConfig).Install(builder);
             new StackEnemyInstaller(stackGroupPrefab).Install(builder);
             new PersistenceInstaller().Install(builder);
             new LevelInstaller(levelSet).Install(builder);
+            new ScreensInstaller().Install(builder);
         }
     }
 }

@@ -10,19 +10,24 @@ namespace StackAttack.Player
         [SerializeField] private Projectile projectilePrefab;
 
         private IPointerInput _input;
+        private GameStateMachine _state;
         private WeaponStats _stats;
         private AutoWeapon _weapon;
 
         [Inject]
-        public void Construct(IPointerInput input, WeaponStats stats)
+        public void Construct(IPointerInput input, WeaponStats stats, GameStateMachine state)
         {
             _input = input;
+            _state = state;
             _stats = stats;
             _weapon = new AutoWeapon(stats);
         }
 
         private void Update()
         {
+            if (_state.Current != GameState.Playing)
+                return;
+
             if (_weapon.Tick(Time.deltaTime, _input.IsPressed))
                 Fire();
         }

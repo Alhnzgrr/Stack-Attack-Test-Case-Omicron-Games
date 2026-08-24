@@ -14,5 +14,14 @@ namespace StackAttack.Core
                 return pointer != null && pointer.press.isPressed;
             }
         }
+
+        public bool PressedThisFrame
+        {
+            get
+            {
+                Pointer pointer = Pointer.current;
+                return pointer != null && pointer.press.wasPressedThisFrame;
+            }
+        }
     }
 }

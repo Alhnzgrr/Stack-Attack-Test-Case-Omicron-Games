@@ -21,7 +21,7 @@ namespace StackAttack.Player
         {
             builder.RegisterInstance(_playerConfig);
             builder.RegisterInstance(_weaponConfig.CreateStats());
-            builder.RegisterInstance(_healthConfig);
+            builder.RegisterInstance(new PlayerHealth(_healthConfig.MaxHealth, _healthConfig.InvulnerabilityDuration));
             builder.Register<IPointerInput, PointerInput>(Lifetime.Singleton);
             builder.RegisterComponentInHierarchy<PlayerMovementBehaviour>();
             builder.RegisterComponentInHierarchy<PlayerWeaponBehaviour>();

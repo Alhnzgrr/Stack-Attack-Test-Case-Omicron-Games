@@ -4,5 +4,7 @@ namespace StackAttack.Core
     {
         float DeltaPixels { get; }
         bool IsPressed { get; }
+
+        bool PressedThisFrame { get; }
     }
 }

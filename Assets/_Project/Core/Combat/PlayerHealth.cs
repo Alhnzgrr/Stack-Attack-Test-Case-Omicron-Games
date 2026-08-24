@@ -1,4 +1,4 @@
-namespace StackAttack.Player
+namespace StackAttack.Core
 {
     public class PlayerHealth
     {
@@ -8,15 +8,24 @@ namespace StackAttack.Player
 
         public PlayerHealth(int maxHealth, float invulnerabilityDuration)
         {
+            Max = maxHealth;
             _invulnerabilityDuration = invulnerabilityDuration;
             Current = maxHealth;
         }
+
+        public int Max { get; }
 
         public int Current { get; private set; }
 
         public bool IsInvulnerable => _invulnerabilityLeft > 0f;
 
         public bool IsDead => Current <= 0;
+
+        public void Restore()
+        {
+            Current = Max;
+            _invulnerabilityLeft = 0f;
+        }
 
         public void Tick(float deltaTime)
         {
