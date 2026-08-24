@@ -30,7 +30,7 @@ namespace StackAttack.StackEnemy
             _orbitAngle = 0f;
             _horizontalDirection = 1;
 
-            int memberCount = Mathf.Clamp(MemberCount(entry), 1, _members.Length);
+            int memberCount = Mathf.Clamp(StackGroupGeometry.MemberCount(entry), 1, _members.Length);
             BuildOffsets(entry, memberCount);
 
             for (int i = 0; i < _members.Length; i++)
@@ -45,8 +45,7 @@ namespace StackAttack.StackEnemy
                 _members[i].transform.localPosition = _baseOffsets[i];
             }
 
-            float stackWidth = entry.stackType.PlateSize.x;
-            _horizontalLimit = Mathf.Max(playfieldHalfWidth - HalfWidthOf(entry, memberCount, stackWidth), 0f);
+            _horizontalLimit = Mathf.Max(playfieldHalfWidth - StackGroupGeometry.HalfWidth(entry), 0f);
 
             transform.position = new Vector3(Mathf.Clamp(entry.xPosition, -_horizontalLimit, _horizontalLimit), spawnY, 0f);
         }
@@ -127,22 +126,5 @@ namespace StackAttack.StackEnemy
             }
         }
 
-        private static int MemberCount(StackGroupEntry entry)
-        {
-            return entry.layout == GroupLayout.Single ? 1 : entry.count;
-        }
-
-        private static float HalfWidthOf(StackGroupEntry entry, int memberCount, float stackWidth)
-        {
-            float half = stackWidth * 0.5f;
-
-            if (entry.layout == GroupLayout.Row)
-                return (memberCount - 1) * 0.5f * entry.spacing + half;
-
-            if (entry.layout == GroupLayout.Ring)
-                return entry.radius + half;
-
-            return half;
-        }
     }
 }
