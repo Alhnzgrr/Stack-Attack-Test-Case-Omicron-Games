@@ -13,6 +13,8 @@ namespace StackAttack.Level
         private static readonly Color CellOccupied = new Color(0.75f, 0.2f, 0.2f, 0.45f);
         private static readonly Color CellConflict = new Color(0.95f, 0.35f, 0.1f, 0.75f);
         private static readonly Color CellSelected = new Color(1f, 0.85f, 0.2f, 0.9f);
+        private static readonly Color DropValid = new Color(0.35f, 0.9f, 0.4f, 0.9f);
+        private static readonly Color DropInvalid = new Color(0.95f, 0.2f, 0.2f, 0.9f);
 
         private LevelConfig _config;
         private SerializedObject _serialized;
@@ -26,6 +28,11 @@ namespace StackAttack.Level
         private float _cellSize = 44f;
         private int _selected = -1;
         private Vector2 _gridScroll;
+
+        private int _dragIndex = -1;
+        private int _dragLane;
+        private int _dragRow;
+        private bool _dragInside;
 
         [MenuItem("StackAttack/Level Editor")]
         private static void Open()
@@ -126,7 +133,8 @@ namespace StackAttack.Level
                 }
             }
 
-            HandleGridClick(canvas, rows);
+            DrawDropPreview(canvas, rows);
+            HandleGridInput(canvas, rows);
 
             EditorGUILayout.EndScrollView();
         }
@@ -250,26 +258,103 @@ namespace StackAttack.Level
             return entry.xPosition - halfWidth < cellX + 0.5f && entry.xPosition + halfWidth > cellX - 0.5f;
         }
 
-        private void HandleGridClick(Rect canvas, int rows)
+        private void DrawDropPreview(Rect canvas, int rows)
         {
-            Event current = Event.current;
-
-            if (current.type != EventType.MouseDown || current.button != 0 || !canvas.Contains(current.mousePosition))
+            if (_dragIndex < 0 || !_dragInside)
                 return;
 
-            int lane = Mathf.Clamp(Mathf.FloorToInt((current.mousePosition.x - canvas.x) / _cellSize), 0, _laneCount - 1);
-            int fromTop = Mathf.FloorToInt((current.mousePosition.y - canvas.y) / _cellSize);
-            int row = Mathf.Clamp(rows - 1 - fromTop, 0, rows - 1);
+            Rect target = CellRect(canvas, _dragLane, _dragRow, rows);
+            Color color = CanDrop(_dragIndex, _dragLane, _dragRow) ? DropValid : DropInvalid;
 
+            EditorGUI.DrawRect(new Rect(target.x, target.y, target.width, 3f), color);
+            EditorGUI.DrawRect(new Rect(target.x, target.yMax - 3f, target.width, 3f), color);
+            EditorGUI.DrawRect(new Rect(target.x, target.y, 3f, target.height), color);
+            EditorGUI.DrawRect(new Rect(target.xMax - 3f, target.y, 3f, target.height), color);
+        }
+
+        private void HandleGridInput(Rect canvas, int rows)
+        {
+            int controlId = GUIUtility.GetControlID(FocusType.Passive);
+            Event current = Event.current;
+
+            switch (current.GetTypeForControl(controlId))
+            {
+                case EventType.MouseDown:
+                    if (current.button != 0 || !canvas.Contains(current.mousePosition))
+                        return;
+
+                    ResolveCell(canvas, rows, current.mousePosition);
+
+                    int anchor = AnchorAt(_dragLane, _dragRow);
+
+                    if (anchor >= 0)
+                    {
+                        _selected = anchor;
+                        _dragIndex = anchor;
+                        GUIUtility.hotControl = controlId;
+                    }
+                    else
+                    {
+                        CreateEntry(_dragLane, _dragRow);
+                    }
+
+                    current.Use();
+                    Repaint();
+                    return;
+
+                case EventType.MouseDrag:
+                    if (GUIUtility.hotControl != controlId)
+                        return;
+
+                    ResolveCell(canvas, rows, current.mousePosition);
+                    current.Use();
+                    Repaint();
+                    return;
+
+                case EventType.MouseUp:
+                    if (GUIUtility.hotControl != controlId)
+                        return;
+
+                    GUIUtility.hotControl = 0;
+
+                    // Dropping anywhere invalid simply keeps the entry where it was,
+                    // because nothing is written until the drop is accepted.
+                    if (_dragIndex >= 0 && _dragInside && CanDrop(_dragIndex, _dragLane, _dragRow))
+                        MoveEntry(_dragIndex, _dragLane, _dragRow);
+
+                    _dragIndex = -1;
+                    current.Use();
+                    Repaint();
+                    return;
+            }
+        }
+
+        private void ResolveCell(Rect canvas, int rows, Vector2 mouse)
+        {
+            int lane = Mathf.FloorToInt((mouse.x - canvas.x) / _cellSize);
+            int fromTop = Mathf.FloorToInt((mouse.y - canvas.y) / _cellSize);
+            int row = rows - 1 - fromTop;
+
+            _dragInside = lane >= 0 && lane < _laneCount && row >= 0 && row < rows;
+            _dragLane = Mathf.Clamp(lane, 0, _laneCount - 1);
+            _dragRow = Mathf.Clamp(row, 0, rows - 1);
+        }
+
+        private bool CanDrop(int index, int lane, int row)
+        {
             int anchor = AnchorAt(lane, row);
 
-            if (anchor >= 0)
-                _selected = anchor;
-            else
-                CreateEntry(lane, row);
+            return anchor < 0 || anchor == index;
+        }
 
-            current.Use();
-            Repaint();
+        private void MoveEntry(int index, int lane, int row)
+        {
+            SerializedProperty entry = _entries.GetArrayElementAtIndex(index);
+
+            entry.FindPropertyRelative("distance").floatValue = row;
+            entry.FindPropertyRelative("xPosition").floatValue = LaneX(lane);
+
+            _serialized.ApplyModifiedProperties();
         }
 
         private void CreateEntry(int lane, int row)
