@@ -74,7 +74,7 @@ this way. If it is null, the setup is wrong; let it fail loudly.
 - No defensive null-checks or null-fallback on guaranteed dependencies.
 - Same-object components via `GetComponent*`, cached in `Awake`, never in `Update`.
 - Naming: `private Foo _test;` vs `[SerializeField] private Foo test;`.
-- No `#region`. No `/// <summary>`.
+- No `#region`. No `/// <summary>`. No `var` -> always the explicit type.
 - Never text-edit `.unity` / `.prefab` / `.asset` files — the user does that in the Editor.
 - **Code by default.** No Unity MCP, no test runs, no Play mode unless the user
   explicitly grants it for that specific task (see Division of Labour).
