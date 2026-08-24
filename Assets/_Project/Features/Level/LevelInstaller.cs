@@ -18,6 +18,7 @@ namespace StackAttack.Level
             builder.RegisterInstance(_levelSet);
             builder.RegisterInstance(new LevelProgress());
             builder.RegisterComponentInHierarchy<LevelRunner>();
+            builder.RegisterComponentInHierarchy<BackgroundScroller>();
         }
     }
 }
