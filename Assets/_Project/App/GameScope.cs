@@ -1,5 +1,6 @@
 using StackAttack.Core;
 using StackAttack.Level;
+using StackAttack.Persistence;
 using StackAttack.Player;
 using StackAttack.StackEnemy;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace StackAttack.App
         [SerializeField] private PlayerConfig playerConfig;
         [SerializeField] private WeaponConfig weaponConfig;
         [SerializeField] private HealthConfig healthConfig;
-        [SerializeField] private LevelConfig levelConfig;
+        [SerializeField] private LevelSet levelSet;
         [SerializeField] private StackGroup stackGroupPrefab;
 
         protected override void Configure(IContainerBuilder builder)
@@ -23,7 +24,8 @@ namespace StackAttack.App
 
             new PlayerInstaller(playerConfig, weaponConfig, healthConfig).Install(builder);
             new StackEnemyInstaller(stackGroupPrefab).Install(builder);
-            new LevelInstaller(levelConfig).Install(builder);
+            new PersistenceInstaller().Install(builder);
+            new LevelInstaller(levelSet).Install(builder);
         }
     }
 }

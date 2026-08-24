@@ -4,6 +4,7 @@ namespace StackAttack.Core
 {
     public class LevelProgress
     {
+        public int LevelIndex;
         public float Length;
         public float Travelled;
 

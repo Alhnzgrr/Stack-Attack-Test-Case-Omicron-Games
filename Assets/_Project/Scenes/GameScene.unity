@@ -554,7 +554,7 @@ MonoBehaviour:
   playerConfig: {fileID: 11400000, guid: b7f92f3ac956ecb43b4aa61b2300d478, type: 2}
   weaponConfig: {fileID: 11400000, guid: f2cee24f54c82e247aadbec85c5ec8eb, type: 2}
   healthConfig: {fileID: 11400000, guid: 2ace9309eb47d4f44a587158badad5ee, type: 2}
-  levelConfig: {fileID: 11400000, guid: c5ac163f7ce2e0b42a6460876571997f, type: 2}
+  levelSet: {fileID: 11400000, guid: 8b3e6797d131ba5469a08bf0eedfa7df, type: 2}
   stackGroupPrefab: {fileID: 2945079107846993636, guid: cff2a6653c9302349a53b9e5c415f8b6, type: 3}
 --- !u!1 &1280443743
 GameObject:

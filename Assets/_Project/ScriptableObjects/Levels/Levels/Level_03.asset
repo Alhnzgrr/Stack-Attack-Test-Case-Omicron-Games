@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1997b458eee32ef409618caa6908b4a0, type: 3}
+  m_Name: Level_03
+  m_EditorClassIdentifier: 
+  levelLength: 100
+  scrollSpeed: 2
+  entries:
+  - distance: 2
+    xPosition: -2
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 12
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 2
+    xPosition: -1
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 12
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 1
+    xPosition: 0
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 12
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 2
+    xPosition: 1
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 12
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 2
+    xPosition: 2
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 12
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 4
+    xPosition: 0
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 12
+    layout: 2
+    count: 6
+    spacing: 1
+    radius: 1
+    motion: 2
+    motionSpeed: 30
