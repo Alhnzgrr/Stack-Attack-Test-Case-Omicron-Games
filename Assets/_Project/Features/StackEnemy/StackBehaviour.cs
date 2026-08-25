@@ -7,15 +7,13 @@ namespace StackAttack.StackEnemy
     [RequireComponent(typeof(BoxCollider2D))]
     public class StackBehaviour : MonoBehaviour, IDamageable, IHazard
     {
-        [SerializeField] private StackTypeConfig type;
-        [SerializeField] private int maxHp = 12;
-
         private SpriteRenderer[] _plates;
         private TextMeshPro _label;
         private BoxCollider2D _collider;
 
         private StackTypeConfig _type;
         private StackHealth _health;
+        private IScoreSink _score;
         private HitFeedback _feedback;
         private Vector3 _baseScale;
         private Vector2 _plateSpriteSize;
@@ -31,17 +29,10 @@ namespace StackAttack.StackEnemy
             _plateSpriteSize = _plates[0].sprite.bounds.size;
         }
 
-        // Hand-placed stacks initialise themselves from the inspector values. Once the
-        // level spawner exists it calls Setup first and this fallback does nothing.
-        private void Start()
-        {
-            if (_health == null)
-                Setup(type, maxHp);
-        }
-
-        public void Setup(StackTypeConfig stackType, int hp)
+        public void Setup(StackTypeConfig stackType, int hp, IScoreSink score)
         {
             _type = stackType;
+            _score = score;
             _health = new StackHealth(hp, stackType.HitsPerPlate, _plates.Length);
             _feedback = new HitFeedback(
                 stackType.HitFlashDuration,
@@ -67,7 +58,15 @@ namespace StackAttack.StackEnemy
 
         public void TakeDamage(float amount)
         {
+            int platesBefore = _health.VisiblePlates;
             _health.TakeDamage(amount);
+
+            // A plate is worth what it cost to break, so a level's point budget adds
+            // up to the total hp the player has to chew through.
+            int broken = platesBefore - _health.VisiblePlates;
+            if (broken > 0)
+                _score.AddPoints(broken * _type.HitsPerPlate);
+
             Apply();
 
             if (_health.IsDead)

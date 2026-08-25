@@ -2,18 +2,20 @@ namespace StackAttack.Core
 {
     public class PlayerHealth
     {
+        private readonly int _baseMax;
         private readonly float _invulnerabilityDuration;
 
         private float _invulnerabilityLeft;
 
         public PlayerHealth(int maxHealth, float invulnerabilityDuration)
         {
-            Max = maxHealth;
+            _baseMax = maxHealth;
             _invulnerabilityDuration = invulnerabilityDuration;
-            Current = maxHealth;
+
+            ResetToBase();
         }
 
-        public int Max { get; }
+        public int Max { get; private set; }
 
         public int Current { get; private set; }
 
@@ -25,6 +27,20 @@ namespace StackAttack.Core
         {
             Current = Max;
             _invulnerabilityLeft = 0f;
+        }
+
+        // Extra hearts are an upgrade, and upgrades do not survive the level that
+        // granted them.
+        public void ResetToBase()
+        {
+            Max = _baseMax;
+            Restore();
+        }
+
+        public void Grow(int amount)
+        {
+            Max += amount;
+            Current += amount;
         }
 
         public void Tick(float deltaTime)

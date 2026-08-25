@@ -13,13 +13,7 @@ namespace StackAttack.Player
 
         public WeaponStats CreateStats()
         {
-            return new WeaponStats
-            {
-                Damage = damage,
-                FireRate = fireRate,
-                ProjectileCount = projectileCount,
-                ProjectileSize = projectileSize
-            };
+            return new WeaponStats(damage, fireRate, projectileCount, projectileSize);
         }
     }
 }

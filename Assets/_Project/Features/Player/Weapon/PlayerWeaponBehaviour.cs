@@ -42,7 +42,7 @@ namespace StackAttack.Player
                 Vector3 position = muzzle.position + Vector3.right * (i * size - spread);
                 Projectile projectile = Instantiate(projectilePrefab, position, Quaternion.identity);
 
-                projectile.Launch(_stats.Damage, size);
+                projectile.Launch(_stats.Damage, size, _stats.Pierce);
             }
         }
     }

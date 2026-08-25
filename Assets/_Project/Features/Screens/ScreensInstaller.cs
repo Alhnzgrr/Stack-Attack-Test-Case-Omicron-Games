@@ -11,6 +11,7 @@ namespace StackAttack.Screens
             builder.RegisterComponentInHierarchy<StartScreen>();
             builder.RegisterComponentInHierarchy<GameplayHud>();
             builder.RegisterComponentInHierarchy<EndScreen>();
+            builder.RegisterComponentInHierarchy<UpgradeScreen>();
         }
     }
 }

@@ -4,6 +4,7 @@ using StackAttack.Persistence;
 using StackAttack.Player;
 using StackAttack.Screens;
 using StackAttack.StackEnemy;
+using StackAttack.Upgrades;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -17,6 +18,7 @@ namespace StackAttack.App
         [SerializeField] private WeaponConfig weaponConfig;
         [SerializeField] private HealthConfig healthConfig;
         [SerializeField] private LevelSet levelSet;
+        [SerializeField] private UpgradePool upgradePool;
         [SerializeField] private StackGroup stackGroupPrefab;
 
         protected override void Configure(IContainerBuilder builder)
@@ -25,6 +27,7 @@ namespace StackAttack.App
             builder.RegisterInstance(new GameStateMachine());
 
             new PlayerInstaller(playerConfig, weaponConfig, healthConfig).Install(builder);
+            new UpgradesInstaller(upgradePool).Install(builder);
             new StackEnemyInstaller(stackGroupPrefab).Install(builder);
             new PersistenceInstaller().Install(builder);
             new LevelInstaller(levelSet).Install(builder);

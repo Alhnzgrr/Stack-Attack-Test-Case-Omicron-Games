@@ -12,11 +12,13 @@ namespace StackAttack.Player
 
         private float _damage;
         private float _travelled;
+        private int _hitsLeft;
 
-        public void Launch(float damage, float size)
+        public void Launch(float damage, float size, int pierce)
         {
             _damage = damage;
             _travelled = 0f;
+            _hitsLeft = pierce + 1;
             transform.localScale = new Vector3(size, size, 1f);
         }
 
@@ -36,7 +38,10 @@ namespace StackAttack.Player
                 return;
 
             damageable.TakeDamage(_damage);
-            Destroy(gameObject);
+
+            _hitsLeft--;
+            if (_hitsLeft <= 0)
+                Destroy(gameObject);
         }
     }
 }
