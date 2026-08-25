@@ -11,10 +11,17 @@ namespace StackAttack.Core
         [SerializeField] private float plateStep = 0.1f;
         [SerializeField] private int contactDamage = 1;
 
+        [SerializeField] private float hitFlashDuration = 0.12f;
+        [SerializeField] private float hitFlashStrength = 0.8f;
+        [SerializeField] private float hitPunchScale = 0.08f;
+
         public int HitsPerPlate => hitsPerPlate;
         public Color PlateColor => plateColor;
         public Vector2 PlateSize => plateSize;
         public float PlateStep => plateStep;
         public int ContactDamage => contactDamage;
+        public float HitFlashDuration => hitFlashDuration;
+        public float HitFlashStrength => hitFlashStrength;
+        public float HitPunchScale => hitPunchScale;
     }
 }

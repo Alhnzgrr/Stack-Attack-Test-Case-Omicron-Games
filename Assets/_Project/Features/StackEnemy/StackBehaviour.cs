@@ -16,12 +16,15 @@ namespace StackAttack.StackEnemy
 
         private StackTypeConfig _type;
         private StackHealth _health;
+        private StackHitFeedback _feedback;
+        private Vector3 _baseScale;
 
         private void Awake()
         {
             _plates = GetComponentsInChildren<SpriteRenderer>(true);
             _label = GetComponentInChildren<TextMeshPro>(true);
             _collider = GetComponent<BoxCollider2D>();
+            _baseScale = transform.localScale;
         }
 
         // Hand-placed stacks initialise themselves from the inspector values. Once the
@@ -36,6 +39,12 @@ namespace StackAttack.StackEnemy
         {
             _type = stackType;
             _health = new StackHealth(hp, stackType.HitsPerPlate, _plates.Length);
+            _feedback = new StackHitFeedback(
+                stackType.HitFlashDuration,
+                stackType.HitFlashStrength,
+                stackType.HitPunchScale);
+
+            transform.localScale = _baseScale;
 
             for (int i = 0; i < _plates.Length; i++)
             {
@@ -56,6 +65,35 @@ namespace StackAttack.StackEnemy
         {
             _health.TakeDamage(amount);
             Apply();
+
+            if (_health.IsDead)
+                return;
+
+            // Restarting here rather than on the next frame keeps the flash on the
+            // same frame as the hit, which is what makes the shot feel connected.
+            _feedback.Restart();
+            ApplyFeedback();
+        }
+
+        private void Update()
+        {
+            if (!_feedback.IsActive)
+                return;
+
+            _feedback.Tick(Time.deltaTime);
+            ApplyFeedback();
+        }
+
+        // The whole stack reacts, not just the plate that was hit, so the pulse is
+        // written across every plate and the punch onto the stack root.
+        private void ApplyFeedback()
+        {
+            Color color = Color.Lerp(_type.PlateColor, Color.white, _feedback.FlashAmount);
+
+            for (int i = 0; i < _plates.Length; i++)
+                _plates[i].color = color;
+
+            transform.localScale = _baseScale * _feedback.ScaleMultiplier;
         }
 
         private void Apply()
