@@ -15,6 +15,7 @@ namespace StackAttack.Level
         private static readonly Color CellSelected = new Color(1f, 0.85f, 0.2f, 0.9f);
         private static readonly Color DropValid = new Color(0.35f, 0.9f, 0.4f, 0.9f);
         private static readonly Color DropInvalid = new Color(0.95f, 0.2f, 0.2f, 0.9f);
+        private static readonly Color CellMissingType = new Color(0.95f, 0.75f, 0.1f, 0.9f);
 
         private LevelConfig _config;
         private SerializedObject _serialized;
@@ -95,6 +96,9 @@ namespace StackAttack.Level
             GUILayout.Label("Zoom", EditorStyles.miniLabel, GUILayout.Width(38f));
             _cellSize = GUILayout.HorizontalSlider(_cellSize, 20f, 90f, GUILayout.Width(90f));
 
+            if (_brushType == null)
+                GUILayout.Label("Brush needs a stack type", EditorStyles.miniLabel);
+
             GUILayout.FlexibleSpace();
             EditorGUILayout.EndHorizontal();
         }
@@ -168,11 +172,8 @@ namespace StackAttack.Level
 
             StackGroupEntry entry = _config.Entries[anchor];
 
-            if (entry.stackType != null)
-            {
-                Rect inner = new Rect(cell.x + 4f, cell.y + 4f, cell.width - 8f, cell.height - 8f);
-                EditorGUI.DrawRect(inner, entry.stackType.PlateColor);
-            }
+            Rect inner = new Rect(cell.x + 4f, cell.y + 4f, cell.width - 8f, cell.height - 8f);
+            EditorGUI.DrawRect(inner, entry.stackType != null ? entry.stackType.PlateColor : CellMissingType);
 
             if (anchor == _selected)
             {
@@ -182,7 +183,9 @@ namespace StackAttack.Level
                 EditorGUI.DrawRect(new Rect(cell.xMax - 2f, cell.y, 2f, cell.height), CellSelected);
             }
 
-            GUI.Label(cell, StackGroupGeometry.PlateCount(entry).ToString(), CenteredLabel());
+            string caption = entry.stackType != null ? StackGroupGeometry.PlateCount(entry).ToString() : "!";
+
+            GUI.Label(cell, caption, CenteredLabel());
         }
 
         private static GUIStyle CenteredLabel()
@@ -359,6 +362,14 @@ namespace StackAttack.Level
 
         private void CreateEntry(int lane, int row)
         {
+            // An entry without a type throws the moment it spawns, so the brush has to
+            // be filled before anything can be placed.
+            if (_brushType == null)
+            {
+                Debug.LogWarning("Pick a Stack Type in the Brush field before placing entries.");
+                return;
+            }
+
             int index = _entries.arraySize;
             _entries.InsertArrayElementAtIndex(index);
 
