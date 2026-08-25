@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1997b458eee32ef409618caa6908b4a0, type: 3}
   m_Name: Level_01
   m_EditorClassIdentifier: 
-  levelLength: 10
+  levelLength: 30
   scrollSpeed: 2
   entries:
   - distance: 2
@@ -65,7 +65,7 @@ MonoBehaviour:
     radius: 1
     motion: 0
     motionSpeed: 0
-  - distance: 4
+  - distance: 11
     xPosition: 0
     stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
     hp: 12
