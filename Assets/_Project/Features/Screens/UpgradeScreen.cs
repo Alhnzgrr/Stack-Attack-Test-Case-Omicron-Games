@@ -15,15 +15,16 @@ namespace StackAttack.Screens
         {
             public Button button;
             public Image frame;
-            public TextMeshProUGUI title;
-            public TextMeshProUGUI description;
+            public Image icon;
+            public TextMeshProUGUI category;
+            public TextMeshProUGUI stat;
+            public TextMeshProUGUI value;
         }
 
         [SerializeField] private GameObject panel;
         [SerializeField] private Card[] cards;
 
         private IUpgradeService _upgrades;
-        private int _shownOfferId = -1;
 
         [Inject]
         public void Construct(IUpgradeService upgrades)
@@ -42,30 +43,28 @@ namespace StackAttack.Screens
             panel.SetActive(false);
         }
 
-        // The service opens the choice from inside a collision callback, and answering
-        // one can roll the next in the same frame, so the panel follows the offer id
-        // rather than a single event.
-        private void Update()
+        // Subscribing in Start rather than OnEnable because the service arrives
+        // through injection at the scope's Awake, which is not ordered against this
+        // component's own Awake.
+        private void Start()
+        {
+            _upgrades.Changed += Apply;
+            Apply();
+        }
+
+        private void OnDestroy()
+        {
+            _upgrades.Changed -= Apply;
+        }
+
+        private void Apply()
         {
             if (!_upgrades.IsChoosing)
             {
-                if (_shownOfferId < 0)
-                    return;
-
-                _shownOfferId = -1;
                 panel.SetActive(false);
                 return;
             }
 
-            if (_shownOfferId == _upgrades.OfferId)
-                return;
-
-            _shownOfferId = _upgrades.OfferId;
-            Render();
-        }
-
-        private void Render()
-        {
             IReadOnlyList<UpgradeOption> offer = _upgrades.Offer;
 
             for (int i = 0; i < cards.Length; i++)
@@ -77,8 +76,10 @@ namespace StackAttack.Screens
                     continue;
 
                 cards[i].frame.color = offer[i].tint;
-                cards[i].title.SetText(offer[i].title);
-                cards[i].description.SetText(offer[i].description);
+                cards[i].icon.sprite = offer[i].icon;
+                cards[i].category.SetText(offer[i].category);
+                cards[i].stat.SetText(offer[i].statName);
+                cards[i].value.SetText(offer[i].ValueLabel);
             }
 
             panel.SetActive(true);

@@ -34,9 +34,9 @@ namespace StackAttack.Upgrades
 
         public bool IsChoosing { get; private set; }
 
-        public int OfferId { get; private set; }
-
         public IReadOnlyList<UpgradeOption> Offer => _offer;
+
+        public event Action Changed;
 
         public void Dispose()
         {
@@ -72,6 +72,7 @@ namespace StackAttack.Upgrades
 
             IsChoosing = false;
             Time.timeScale = 1f;
+            Changed?.Invoke();
         }
 
         private void OnStateChanged(GameState state)
@@ -79,6 +80,7 @@ namespace StackAttack.Upgrades
             Time.timeScale = 1f;
             IsChoosing = false;
             _offer.Clear();
+            Changed?.Invoke();
 
             if (state != GameState.Playing)
                 return;
@@ -110,12 +112,12 @@ namespace StackAttack.Upgrades
                 }
             }
 
-            OfferId++;
             IsChoosing = true;
 
             // Freezing time rather than routing through the state machine keeps the
             // choice a pause inside the level instead of a fourth game state.
             Time.timeScale = 0f;
+            Changed?.Invoke();
         }
 
         private void Apply(UpgradeOption option)
@@ -123,7 +125,7 @@ namespace StackAttack.Upgrades
             switch (option.kind)
             {
                 case UpgradeKind.FireRate:
-                    _stats.FireRate += option.amount;
+                    _stats.FireRate *= 1f + option.amount;
                     break;
                 case UpgradeKind.Damage:
                     _stats.Damage += option.amount;

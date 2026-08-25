@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace StackAttack.Core
@@ -6,11 +7,10 @@ namespace StackAttack.Core
     {
         bool IsChoosing { get; }
 
-        // Bumped on every roll so a screen can tell a fresh offer from the one it is
-        // already showing without comparing the option list itself.
-        int OfferId { get; }
-
         IReadOnlyList<UpgradeOption> Offer { get; }
+
+        // Raised whenever the offer opens, is replaced by a queued one, or closes.
+        event Action Changed;
 
         void Choose(int index);
     }

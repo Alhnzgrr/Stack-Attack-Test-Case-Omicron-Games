@@ -18,56 +18,56 @@ namespace StackAttack.Upgrades
             new UpgradeOption
             {
                 kind = UpgradeKind.FireRate,
-                title = "Rapid Fire",
-                description = "+2 shots per second",
-                amount = 2f,
+                category = "BALL",
+                statName = "FIRERATE",
+                amount = 0.15f,
                 tint = new Color(1f, 0.78f, 0.2f, 1f)
             },
             new UpgradeOption
             {
                 kind = UpgradeKind.Damage,
-                title = "Heavy Rounds",
-                description = "+1 damage per shot",
+                category = "BALL",
+                statName = "DAMAGE",
                 amount = 1f,
                 tint = new Color(0.95f, 0.32f, 0.28f, 1f)
             },
             new UpgradeOption
             {
                 kind = UpgradeKind.ProjectileCount,
-                title = "Fork Shot",
-                description = "+1 projectile",
+                category = "BALL",
+                statName = "PROJECTILES",
                 amount = 1f,
                 tint = new Color(0.36f, 0.72f, 1f, 1f)
             },
             new UpgradeOption
             {
                 kind = UpgradeKind.ProjectileSize,
-                title = "Wide Shot",
-                description = "+40% projectile size",
+                category = "BALL",
+                statName = "SIZE",
                 amount = 0.4f,
                 tint = new Color(0.45f, 0.85f, 0.6f, 1f)
             },
             new UpgradeOption
             {
                 kind = UpgradeKind.Pierce,
-                title = "Piercing",
-                description = "Shots punch through one more stack",
+                category = "BALL",
+                statName = "PIERCING",
                 amount = 1f,
                 tint = new Color(0.72f, 0.5f, 1f, 1f)
             },
             new UpgradeOption
             {
                 kind = UpgradeKind.MaxHealth,
-                title = "Reinforce",
-                description = "+1 heart",
+                category = "PLAYER",
+                statName = "HEALTH",
                 amount = 1f,
                 tint = new Color(1f, 0.45f, 0.65f, 1f)
             },
             new UpgradeOption
             {
                 kind = UpgradeKind.Greed,
-                title = "Greed",
-                description = "+25% points from plates",
+                category = "SCORE",
+                statName = "POINTS",
                 amount = 0.25f,
                 tint = new Color(0.85f, 0.8f, 0.35f, 1f)
             }

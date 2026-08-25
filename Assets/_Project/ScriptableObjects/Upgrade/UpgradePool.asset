@@ -13,41 +13,48 @@ MonoBehaviour:
   m_Name: UpgradePool
   m_EditorClassIdentifier: 
   offerSize: 3
-  firstCost: 10
-  costGrowth: 8
+  firstCost: 14
+  costGrowth: 6
   options:
   - kind: 0
-    title: Rapid Fire
-    description: +2 shots per second
-    amount: 2
+    category: BALL
+    statName: FIRERATE
+    amount: 0.15
+    icon: {fileID: -2413806693520163455, guid: 811dd6fb7a541654bb5f25ab35a7f11c, type: 3}
     tint: {r: 1, g: 0.78, b: 0.2, a: 1}
   - kind: 1
-    title: Heavy Rounds
-    description: +1 damage per shot
+    category: BALL
+    statName: DAMAGE
     amount: 1
+    icon: {fileID: -2413806693520163455, guid: 811dd6fb7a541654bb5f25ab35a7f11c, type: 3}
     tint: {r: 0.95, g: 0.32, b: 0.28, a: 1}
   - kind: 2
-    title: Fork Shot
-    description: +1 projectile
+    category: BALL
+    statName: PROJECTILES
     amount: 1
+    icon: {fileID: -2413806693520163455, guid: 811dd6fb7a541654bb5f25ab35a7f11c, type: 3}
     tint: {r: 0.36, g: 0.72, b: 1, a: 1}
   - kind: 3
-    title: Wide Shot
-    description: +40% projectile size
+    category: BALL
+    statName: SIZE
     amount: 0.4
+    icon: {fileID: -2413806693520163455, guid: 811dd6fb7a541654bb5f25ab35a7f11c, type: 3}
     tint: {r: 0.45, g: 0.85, b: 0.6, a: 1}
   - kind: 4
-    title: Piercing
-    description: Shots punch through one more stack
+    category: BALL
+    statName: PIERCING
     amount: 1
+    icon: {fileID: -2413806693520163455, guid: 811dd6fb7a541654bb5f25ab35a7f11c, type: 3}
     tint: {r: 0.72, g: 0.5, b: 1, a: 1}
   - kind: 5
-    title: Reinforce
-    description: +1 heart
+    category: PLAYER
+    statName: HEALTH
     amount: 1
+    icon: {fileID: 21300000, guid: 787b8ddbb50ef4efcb4ec6361a971b15, type: 3}
     tint: {r: 1, g: 0.45, b: 0.65, a: 1}
   - kind: 6
-    title: Greed
-    description: +25% points from plates
+    category: SCORE
+    statName: POINTS
     amount: 0.25
+    icon: {fileID: -1998053704441320350, guid: 2c958533d3f3a2545a4acbb85eb148ee, type: 3}
     tint: {r: 0.85, g: 0.8, b: 0.35, a: 1}
