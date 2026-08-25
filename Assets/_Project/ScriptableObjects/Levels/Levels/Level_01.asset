@@ -12,10 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1997b458eee32ef409618caa6908b4a0, type: 3}
   m_Name: Level_01
   m_EditorClassIdentifier: 
-  levelLength: 30
+  levelLength: 45
   scrollSpeed: 2
   entries:
-  - distance: 2
+  - distance: 6
+    xPosition: 0
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 6
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 11
+    xPosition: -1
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 6
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 15
+    xPosition: 1
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 6
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 19
     xPosition: -2
     stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
     hp: 12
@@ -25,27 +55,7 @@ MonoBehaviour:
     radius: 1
     motion: 0
     motionSpeed: 0
-  - distance: 2
-    xPosition: -1
-    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
-    hp: 12
-    layout: 0
-    count: 1
-    spacing: 1
-    radius: 1
-    motion: 0
-    motionSpeed: 0
-  - distance: 1
-    xPosition: 0
-    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
-    hp: 12
-    layout: 0
-    count: 1
-    spacing: 1
-    radius: 1
-    motion: 0
-    motionSpeed: 0
-  - distance: 2
+  - distance: 19
     xPosition: 1
     stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
     hp: 12
@@ -55,23 +65,23 @@ MonoBehaviour:
     radius: 1
     motion: 0
     motionSpeed: 0
-  - distance: 2
-    xPosition: 2
-    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
-    hp: 12
-    layout: 0
-    count: 1
+  - distance: 23
+    xPosition: 0
+    stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
+    hp: 4
+    layout: 1
+    count: 3
     spacing: 1
     radius: 1
     motion: 0
     motionSpeed: 0
-  - distance: 11
+  - distance: 28
     xPosition: 0
     stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
-    hp: 12
+    hp: 6
     layout: 2
-    count: 6
+    count: 5
     spacing: 1
-    radius: 1
-    motion: 2
-    motionSpeed: 30
+    radius: 1.2
+    motion: 0
+    motionSpeed: 0
