@@ -28,6 +28,8 @@ namespace StackAttack.StackEnemy
                 8);
         }
 
+        public bool HasActiveGroups => _active.Count > 0;
+
         public void Spawn(StackGroupEntry entry, float descentSpeed)
         {
             StackGroup group = _pool.Get();
@@ -40,7 +42,7 @@ namespace StackAttack.StackEnemy
         {
             for (int i = _active.Count - 1; i >= 0; i--)
             {
-                if (!_active[i].HasPassed(_playfield.DespawnY))
+                if (!_active[i].HasPassed(_playfield.DespawnY) && !_active[i].IsCleared)
                     continue;
 
                 _pool.Release(_active[i]);

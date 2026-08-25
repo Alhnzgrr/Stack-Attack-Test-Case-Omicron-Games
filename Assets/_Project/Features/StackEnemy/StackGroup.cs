@@ -65,6 +65,23 @@ namespace StackAttack.StackEnemy
             return transform.position.y < despawnY;
         }
 
+        // Members switch themselves off as they die. Waiting for the wreck to
+        // scroll away would hold the group for another half minute at the slow
+        // descent speeds the levels use.
+        public bool IsCleared
+        {
+            get
+            {
+                for (int i = 0; i < _members.Length; i++)
+                {
+                    if (_members[i].gameObject.activeSelf)
+                        return false;
+                }
+
+                return true;
+            }
+        }
+
         private void Update()
         {
             float deltaTime = Time.deltaTime;

@@ -71,14 +71,16 @@ namespace StackAttack.Level
             if (deltaTime <= 0f || _state.Current != GameState.Playing)
                 return;
 
-            if (_progress.IsCompleted)
-            {
-                Win();
-                return;
-            }
+            if (!_progress.IsCompleted)
+                Advance(deltaTime);
 
-            Advance(deltaTime);
             _spawner.Tick();
+
+            // A full bar only means the last group has spawned. Ending there would
+            // close the level with stacks still on screen, so the win waits for the
+            // playfield to empty as well.
+            if (_progress.IsCompleted && !_spawner.HasActiveGroups)
+                Win();
         }
 
         private void Advance(float deltaTime)
