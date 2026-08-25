@@ -9,10 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3904641a243a98f4cacfeed767771e0b, type: 3}
-  m_Name: WeaponConfig
+  m_Script: {fileID: 11500000, guid: 78e551d3653229f44b25886ee100786f, type: 3}
+  m_Name: Swarm
   m_EditorClassIdentifier: 
-  damage: 1
-  fireRate: 6
-  projectileCount: 1
-  projectileSize: 0.45
+  hitsPerPlate: 1
+  plateColor: {r: 0.95, g: 0.55, b: 0.15, a: 1}
+  plateSize: {x: 1, y: 1}
+  plateStep: 0.1
+  contactDamage: 1
+  hitFlashDuration: 0.12
+  hitFlashStrength: 0.8
+  hitPunchScale: 0.08
