@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: PlayfieldConfig
   m_EditorClassIdentifier: 
   halfWidth: 2.5
+  spawnY: 5.6
+  despawnY: -6

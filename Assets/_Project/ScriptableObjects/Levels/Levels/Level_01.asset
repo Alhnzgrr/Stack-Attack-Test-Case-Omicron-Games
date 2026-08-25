@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1997b458eee32ef409618caa6908b4a0, type: 3}
   m_Name: Level_01
   m_EditorClassIdentifier: 
-  levelLength: 45
-  scrollSpeed: 2
+  levelLength: 22
+  scrollSpeed: 0.4
   entries:
-  - distance: 6
+  - distance: 0
     xPosition: 0
     stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
     hp: 6
@@ -25,63 +25,123 @@ MonoBehaviour:
     radius: 1
     motion: 0
     motionSpeed: 0
-  - distance: 11
-    xPosition: -1
+  - distance: 0.8
+    xPosition: -1.5
     stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
     hp: 6
     layout: 0
     count: 1
     spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 1.6
+    xPosition: 1.5
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 6
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 2.6
+    xPosition: 0
+    stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
+    hp: 3
+    layout: 1
+    count: 3
+    spacing: 1.3
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 4
+    xPosition: -1.6
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 8
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 5.5
+    xPosition: 1.6
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 8
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 7
+    xPosition: 0
+    stackType: {fileID: 11400000, guid: 682f2bba37a5b2d4b85cd1b4c6aa431a, type: 2}
+    hp: 12
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 8.5
+    xPosition: -1.5
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 8
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 10
+    xPosition: 1.5
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 8
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 11.5
+    xPosition: 0
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 8
+    layout: 1
+    count: 3
+    spacing: 1.5
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 13
+    xPosition: -1.4
+    stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
+    hp: 4
+    layout: 1
+    count: 2
+    spacing: 1.3
     radius: 1
     motion: 0
     motionSpeed: 0
   - distance: 15
-    xPosition: 1
+    xPosition: 1.4
     stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
-    hp: 6
+    hp: 10
     layout: 0
     count: 1
     spacing: 1
     radius: 1
     motion: 0
     motionSpeed: 0
-  - distance: 19
-    xPosition: -2
-    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
-    hp: 12
-    layout: 0
-    count: 1
-    spacing: 1
-    radius: 1
-    motion: 0
-    motionSpeed: 0
-  - distance: 19
-    xPosition: 1
-    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
-    hp: 12
-    layout: 0
-    count: 1
-    spacing: 1
-    radius: 1
-    motion: 0
-    motionSpeed: 0
-  - distance: 23
+  - distance: 17
     xPosition: 0
-    stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
-    hp: 4
-    layout: 1
-    count: 3
+    stackType: {fileID: 11400000, guid: 682f2bba37a5b2d4b85cd1b4c6aa431a, type: 2}
+    hp: 16
+    layout: 0
+    count: 1
     spacing: 1
     radius: 1
-    motion: 0
-    motionSpeed: 0
-  - distance: 28
-    xPosition: 0
-    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
-    hp: 6
-    layout: 2
-    count: 5
-    spacing: 1
-    radius: 1.2
     motion: 0
     motionSpeed: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level_03
   m_EditorClassIdentifier: 
   levelLength: 100
-  scrollSpeed: 2
+  scrollSpeed: 0.4
   entries:
   - distance: 2
     xPosition: -2
