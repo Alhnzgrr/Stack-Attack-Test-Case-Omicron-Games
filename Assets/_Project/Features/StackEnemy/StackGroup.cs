@@ -18,12 +18,22 @@ namespace StackAttack.StackEnemy
 
         private void Awake()
         {
+            Cache();
+        }
+
+        private void Cache()
+        {
+            if (_members != null)
+                return;
+
             _members = GetComponentsInChildren<StackBehaviour>(true);
             _baseOffsets = new Vector3[_members.Length];
         }
 
         public void Setup(StackGroupEntry entry, float playfieldHalfWidth, float spawnY, float descentSpeed)
         {
+            Cache();
+
             _motion = entry.motion;
             _motionSpeed = entry.motionSpeed;
             _descentSpeed = descentSpeed;
