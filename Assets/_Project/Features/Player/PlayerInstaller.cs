@@ -20,6 +20,7 @@ namespace StackAttack.Player
         public void Install(IContainerBuilder builder)
         {
             builder.RegisterInstance(_playerConfig);
+            builder.RegisterInstance(_healthConfig);
             builder.RegisterInstance(_weaponConfig.CreateStats());
             builder.RegisterInstance(new PlayerHealth(_healthConfig.MaxHealth, _healthConfig.InvulnerabilityDuration));
             builder.Register<IPointerInput, PointerInput>(Lifetime.Singleton);
