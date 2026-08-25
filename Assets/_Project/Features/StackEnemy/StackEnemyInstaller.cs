@@ -15,6 +15,7 @@ namespace StackAttack.StackEnemy
 
         public void Install(IContainerBuilder builder)
         {
+            builder.RegisterComponentInHierarchy<ShardBurst>().As<IShardBurst>();
             builder.Register<IStackSpawner, StackSpawner>(Lifetime.Singleton)
                 .WithParameter(_groupPrefab);
         }

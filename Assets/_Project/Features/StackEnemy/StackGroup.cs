@@ -30,7 +30,7 @@ namespace StackAttack.StackEnemy
             _baseOffsets = new Vector3[_members.Length];
         }
 
-        public void Setup(StackGroupEntry entry, float playfieldHalfWidth, float spawnY, float descentSpeed, IScoreSink score)
+        public void Setup(StackGroupEntry entry, float playfieldHalfWidth, float spawnY, float descentSpeed, IScoreSink score, IShardBurst shards)
         {
             Cache();
 
@@ -51,7 +51,7 @@ namespace StackAttack.StackEnemy
                 if (!used)
                     continue;
 
-                _members[i].Setup(entry.stackType, entry.hp, score);
+                _members[i].Setup(entry.stackType, entry.hp, score, shards);
                 _members[i].transform.localPosition = _baseOffsets[i];
             }
 

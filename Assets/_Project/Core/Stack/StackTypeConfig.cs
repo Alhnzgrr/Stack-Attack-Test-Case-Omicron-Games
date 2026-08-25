@@ -14,6 +14,7 @@ namespace StackAttack.Core
         [SerializeField] private float hitFlashDuration = 0.12f;
         [SerializeField] private float hitFlashStrength = 0.8f;
         [SerializeField] private float hitPunchScale = 0.08f;
+        [SerializeField] private int shardsPerPlate = 7;
 
         public int HitsPerPlate => hitsPerPlate;
         public Color PlateColor => plateColor;
@@ -23,5 +24,6 @@ namespace StackAttack.Core
         public float HitFlashDuration => hitFlashDuration;
         public float HitFlashStrength => hitFlashStrength;
         public float HitPunchScale => hitPunchScale;
+        public int ShardsPerPlate => shardsPerPlate;
     }
 }

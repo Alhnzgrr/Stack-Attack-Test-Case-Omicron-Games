@@ -14,6 +14,7 @@ namespace StackAttack.StackEnemy
         private StackTypeConfig _type;
         private StackHealth _health;
         private IScoreSink _score;
+        private IShardBurst _shards;
         private HitFeedback _feedback;
         private Vector3 _baseScale;
         private Vector2 _plateSpriteSize;
@@ -29,10 +30,11 @@ namespace StackAttack.StackEnemy
             _plateSpriteSize = _plates[0].sprite.bounds.size;
         }
 
-        public void Setup(StackTypeConfig stackType, int hp, IScoreSink score)
+        public void Setup(StackTypeConfig stackType, int hp, IScoreSink score, IShardBurst shards)
         {
             _type = stackType;
             _score = score;
+            _shards = shards;
             _health = new StackHealth(hp, stackType.HitsPerPlate, _plates.Length);
             _feedback = new HitFeedback(
                 stackType.HitFlashDuration,
@@ -65,7 +67,14 @@ namespace StackAttack.StackEnemy
             // up to the total hp the player has to chew through.
             int broken = platesBefore - _health.VisiblePlates;
             if (broken > 0)
+            {
                 _score.AddPoints(broken * _type.HitsPerPlate);
+
+                // Debris comes off the top of the stack, where the plates actually
+                // went, and is thrown before Apply can switch a dead stack off.
+                Vector3 origin = transform.TransformPoint(new Vector3(0f, (platesBefore - 1) * _type.PlateStep, 0f));
+                _shards.Burst(origin, _type.PlateColor, broken * _type.ShardsPerPlate);
+            }
 
             Apply();
 

@@ -10,14 +10,16 @@ namespace StackAttack.StackEnemy
         private readonly StackGroup _groupPrefab;
         private readonly PlayfieldConfig _playfield;
         private readonly IScoreSink _score;
+        private readonly IShardBurst _shards;
         private readonly ObjectPool<StackGroup> _pool;
         private readonly List<StackGroup> _active = new List<StackGroup>();
 
-        public StackSpawner(StackGroup groupPrefab, PlayfieldConfig playfield, IScoreSink score)
+        public StackSpawner(StackGroup groupPrefab, PlayfieldConfig playfield, IScoreSink score, IShardBurst shards)
         {
             _groupPrefab = groupPrefab;
             _playfield = playfield;
             _score = score;
+            _shards = shards;
 
             _pool = new ObjectPool<StackGroup>(
                 Create,
@@ -34,7 +36,7 @@ namespace StackAttack.StackEnemy
         {
             StackGroup group = _pool.Get();
 
-            group.Setup(entry, _playfield.HalfWidth, _playfield.SpawnY, descentSpeed, _score);
+            group.Setup(entry, _playfield.HalfWidth, _playfield.SpawnY, descentSpeed, _score, _shards);
             _active.Add(group);
         }
 
