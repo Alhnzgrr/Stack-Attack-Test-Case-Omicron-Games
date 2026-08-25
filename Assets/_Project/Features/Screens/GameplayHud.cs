@@ -17,8 +17,6 @@ namespace StackAttack.Screens
         private PlayerHealth _health;
         private RunScore _score;
 
-        private int _shownLevelIndex;
-
         [Inject]
         public void Construct(LevelProgress progress, PlayerHealth health, RunScore score)
         {
@@ -27,28 +25,48 @@ namespace StackAttack.Screens
             _score = score;
         }
 
-        // LevelRunner refreshes the index from the same state change that opens this
-        // panel, and the order the two subscribers run in is not defined. Reading the
-        // value every frame instead of once on enable keeps the label correct either
-        // way.
-        private void OnEnable()
+        // Subscribing in Start rather than OnEnable because the services arrive
+        // through injection at the scope's Awake, which is not ordered against this
+        // component's own Awake. The subscriptions then outlive the panel being
+        // closed between levels, so nothing is missed while it is hidden.
+        private void Start()
         {
-            _shownLevelIndex = -1;
+            _health.Changed += ApplyHearts;
+            _score.Changed += ApplyUpgradeBar;
+            _progress.LevelChanged += ApplyLevelLabel;
+
+            ApplyHearts();
+            ApplyUpgradeBar();
+            ApplyLevelLabel();
+        }
+
+        private void OnDestroy()
+        {
+            _health.Changed -= ApplyHearts;
+            _score.Changed -= ApplyUpgradeBar;
+            _progress.LevelChanged -= ApplyLevelLabel;
         }
 
         private void Update()
         {
-            if (_shownLevelIndex != _progress.LevelIndex)
-            {
-                _shownLevelIndex = _progress.LevelIndex;
-                levelLabel.SetText("Level {0:0}", _shownLevelIndex + 1);
-            }
-
+            // Travelled advances every frame, so this one genuinely belongs here.
             levelFill.fillAmount = _progress.Normalized;
-            upgradeFill.fillAmount = _score.Normalized;
+        }
 
+        private void ApplyHearts()
+        {
             for (int i = 0; i < hearts.Length; i++)
                 hearts[i].SetActive(i < _health.Current);
+        }
+
+        private void ApplyUpgradeBar()
+        {
+            upgradeFill.fillAmount = _score.Normalized;
+        }
+
+        private void ApplyLevelLabel()
+        {
+            levelLabel.SetText("Level {0:0}", _progress.LevelIndex + 1);
         }
     }
 }

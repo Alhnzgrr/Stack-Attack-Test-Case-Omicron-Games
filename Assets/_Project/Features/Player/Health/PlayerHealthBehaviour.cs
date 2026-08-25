@@ -37,33 +37,44 @@ namespace StackAttack.Player
         private void Start()
         {
             _state.Changed += OnStateChanged;
+            _health.Changed += ApplyShield;
+
+            ApplyShield();
         }
 
         private void OnDestroy()
         {
             _state.Changed -= OnStateChanged;
+            _health.Changed -= ApplyShield;
         }
 
         private void OnStateChanged(GameState state)
         {
             if (state != GameState.Playing)
+            {
+                // Dying while invulnerable would otherwise leave the ring lit under
+                // the end screen.
+                ApplyShield();
                 return;
+            }
 
+            // Restore raises Changed, which puts the ring out on its own.
             _health.Restore();
             _feedback.Reset();
             ApplyFeedback();
         }
 
+        private void ApplyShield()
+        {
+            shield.SetActive(_state.Current == GameState.Playing && _health.IsInvulnerable);
+        }
+
         private void Update()
         {
             if (_state.Current != GameState.Playing)
-            {
-                shield.SetActive(false);
                 return;
-            }
 
             _health.Tick(Time.deltaTime);
-            shield.SetActive(_health.IsInvulnerable);
 
             if (!_feedback.IsActive)
                 return;

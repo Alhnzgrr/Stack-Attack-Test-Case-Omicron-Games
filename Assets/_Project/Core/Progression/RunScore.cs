@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace StackAttack.Core
@@ -30,6 +31,10 @@ namespace StackAttack.Core
 
         public float Normalized => Mathf.Clamp01((float)_towardsNext / NextCost);
 
+        // Points only move when a plate breaks, so the bar has something to listen
+        // to instead of re-reading this every frame.
+        public event Action Changed;
+
         public void Reset()
         {
             Points = 0;
@@ -37,6 +42,7 @@ namespace StackAttack.Core
             PendingUpgrades = 0;
             _towardsNext = 0;
             Multiplier = 1f;
+            Changed?.Invoke();
         }
 
         public void Add(int amount)
@@ -54,6 +60,8 @@ namespace StackAttack.Core
                 EarnedUpgrades++;
                 PendingUpgrades++;
             }
+
+            Changed?.Invoke();
         }
 
         public bool TryConsume()
