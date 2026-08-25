@@ -18,6 +18,7 @@ namespace StackAttack.StackEnemy
         private StackHealth _health;
         private StackHitFeedback _feedback;
         private Vector3 _baseScale;
+        private Vector2 _plateSpriteSize;
 
         private void Awake()
         {
@@ -25,6 +26,9 @@ namespace StackAttack.StackEnemy
             _label = GetComponentInChildren<TextMeshPro>(true);
             _collider = GetComponent<BoxCollider2D>();
             _baseScale = transform.localScale;
+            // PlateSize is a localScale multiplier, not a world size, so the footprint
+            // of one plate can only come from the sprite itself.
+            _plateSpriteSize = _plates[0].sprite.bounds.size;
         }
 
         // Hand-placed stacks initialise themselves from the inspector values. Once the
@@ -110,8 +114,12 @@ namespace StackAttack.StackEnemy
             }
 
             float topPlateY = (visiblePlates - 1) * _type.PlateStep;
+            float plateWidth = _plateSpriteSize.x * _type.PlateSize.x;
+            float plateHeight = _plateSpriteSize.y * _type.PlateSize.y;
 
-            _collider.size = new Vector2(_type.PlateSize.x, visiblePlates * _type.PlateStep);
+            // The silhouette runs from the bottom of the lowest plate to the top of the
+            // highest, which is one plate taller than the stepping alone suggests.
+            _collider.size = new Vector2(plateWidth, topPlateY + plateHeight);
             _collider.offset = new Vector2(0f, topPlateY * 0.5f);
 
             _label.transform.localPosition = new Vector3(0f, topPlateY, -0.01f);
