@@ -62,6 +62,11 @@ namespace StackAttack.Level
                 return;
             }
 
+            // A domain reload wipes the SerializedObject but keeps the LevelConfig,
+            // so entering play mode leaves the window holding one without the other.
+            if (_serialized == null || _serialized.targetObject != _config)
+                Bind(_config);
+
             _serialized.Update();
 
             EditorGUILayout.BeginHorizontal();
