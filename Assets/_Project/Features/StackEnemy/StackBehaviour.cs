@@ -16,7 +16,7 @@ namespace StackAttack.StackEnemy
 
         private StackTypeConfig _type;
         private StackHealth _health;
-        private StackHitFeedback _feedback;
+        private HitFeedback _feedback;
         private Vector3 _baseScale;
         private Vector2 _plateSpriteSize;
 
@@ -43,7 +43,7 @@ namespace StackAttack.StackEnemy
         {
             _type = stackType;
             _health = new StackHealth(hp, stackType.HitsPerPlate, _plates.Length);
-            _feedback = new StackHitFeedback(
+            _feedback = new HitFeedback(
                 stackType.HitFlashDuration,
                 stackType.HitFlashStrength,
                 stackType.HitPunchScale);

@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace StackAttack.StackEnemy
+namespace StackAttack.Core
 {
-    public class StackHitFeedback
+    public class HitFeedback
     {
         private readonly float _duration;
         private readonly float _flashStrength;
@@ -10,7 +10,7 @@ namespace StackAttack.StackEnemy
 
         private float _elapsed;
 
-        public StackHitFeedback(float duration, float flashStrength, float punchScale)
+        public HitFeedback(float duration, float flashStrength, float punchScale)
         {
             _duration = duration;
             _flashStrength = flashStrength;
@@ -20,11 +20,16 @@ namespace StackAttack.StackEnemy
 
         public bool IsActive => _elapsed < _duration;
 
-        // A new hit restarts the pulse instead of adding to it, so rapid fire reads as
+        // A new hit restarts the pulse instead of adding to it, so rapid hits read as
         // a flicker rather than a colour that saturates and never comes back down.
         public void Restart()
         {
             _elapsed = 0f;
+        }
+
+        public void Reset()
+        {
+            _elapsed = _duration;
         }
 
         public void Tick(float deltaTime)
@@ -34,7 +39,7 @@ namespace StackAttack.StackEnemy
 
         public float FlashAmount => _flashStrength * Mathf.SmoothStep(1f, 0f, Progress);
 
-        // Sin over half a period leaves and returns to exactly 1, so the stack can
+        // Sin over half a period leaves and returns to exactly 1, so the target can
         // never be left stuck at a punched scale.
         public float ScaleMultiplier => 1f + _punchScale * Mathf.Sin(Progress * Mathf.PI);
 
