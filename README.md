@@ -15,6 +15,8 @@ https://github.com/user-attachments/assets/c5bfd950-74bd-435e-b0e3-8a9c04aebae6
 *Recorded from the Unity Editor: drag movement, auto-fire, plate destruction, a mid-run upgrade choice,
 the boss fight and the end screen.*
 
+The full recording is also committed to the repository at [`docs/gameplay.mp4`](docs/gameplay.mp4).
+
 **[Download the Android build (.apk)](../../releases/latest)** — ARM64, IL2CPP, ~40 MB. Sideload to
 install; it is signed with a debug keystore, so Android will ask you to allow installation from an
 unknown source.
