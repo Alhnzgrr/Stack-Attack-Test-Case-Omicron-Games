@@ -25,7 +25,10 @@ namespace StackAttack.Player
             builder.RegisterInstance(new PlayerHealth(_healthConfig.MaxHealth, _healthConfig.InvulnerabilityDuration));
             builder.Register<IPointerInput, PointerInput>(Lifetime.Singleton);
             builder.RegisterComponentInHierarchy<PlayerMovementBehaviour>();
+            builder.RegisterComponentInHierarchy<ProjectileField>();
             builder.RegisterComponentInHierarchy<PlayerWeaponBehaviour>();
+            builder.RegisterComponentInHierarchy<PlayerBoomerangBehaviour>();
+            builder.RegisterComponentInHierarchy<PlayerRocketBehaviour>();
             builder.RegisterComponentInHierarchy<PlayerHealthBehaviour>();
         }
     }

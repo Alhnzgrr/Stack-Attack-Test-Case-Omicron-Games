@@ -8177,6 +8177,8 @@ GameObject:
   - component: {fileID: 1841354703}
   - component: {fileID: 1841354704}
   - component: {fileID: 1841354705}
+  - component: {fileID: 1841354708}
+  - component: {fileID: 1841354709}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -8228,7 +8230,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   muzzle: {fileID: 740218925}
-  projectileRoot: {fileID: 2098111337}
   projectilePrefab: {fileID: 7674225823345012114, guid: 2f1e02dd657829c4399a5feef15dad42, type: 3}
 --- !u!114 &1841354705
 MonoBehaviour:
@@ -8317,6 +8318,33 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1841354708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841354701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 039b52b0c7d2127498cd2e6e310773d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boomerangPrefab: {fileID: 2573145215947261444, guid: db8bc4da4ba177341a900a51aebcc9ed, type: 3}
+  damage: 3
+--- !u!114 &1841354709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841354701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e18691972d16e47bcb3a5773257e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rocketPrefab: {fileID: 8428287946362117830, guid: ebb1d2c6b5a173c46b8922d9cc2095e6, type: 3}
 --- !u!1 &1884334508
 GameObject:
   m_ObjectHideFlags: 0
@@ -8852,6 +8880,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2098111337}
+  - component: {fileID: 2098111338}
   m_Layer: 0
   m_Name: Projectiles
   m_TagString: Untagged
@@ -8874,6 +8903,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1926541158}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2098111338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098111336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2281f09e687b5d743ad918577681026e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2126572400
 GameObject:
   m_ObjectHideFlags: 0

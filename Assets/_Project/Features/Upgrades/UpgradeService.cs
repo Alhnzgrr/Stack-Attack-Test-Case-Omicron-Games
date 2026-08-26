@@ -145,6 +145,12 @@ namespace StackAttack.Upgrades
                 case UpgradeKind.Greed:
                     _score.Multiplier += option.amount;
                     break;
+                case UpgradeKind.BoomerangCount:
+                    _stats.BoomerangCount += Mathf.RoundToInt(option.amount);
+                    break;
+                case UpgradeKind.RocketDamage:
+                    _stats.RocketDamage += option.amount;
+                    break;
             }
         }
     }

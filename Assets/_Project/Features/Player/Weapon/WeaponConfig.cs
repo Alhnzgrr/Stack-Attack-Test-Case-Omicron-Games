@@ -10,10 +10,12 @@ namespace StackAttack.Player
         [SerializeField] private float fireRate = 6f;
         [SerializeField] private int projectileCount = 1;
         [SerializeField] private float projectileSize = 0.45f;
+        [SerializeField] private float boomerangInterval = 4f;
+        [SerializeField] private float rocketInterval = 5f;
 
         public WeaponStats CreateStats()
         {
-            return new WeaponStats(damage, fireRate, projectileCount, projectileSize);
+            return new WeaponStats(damage, fireRate, projectileCount, projectileSize, boomerangInterval, rocketInterval);
         }
     }
 }

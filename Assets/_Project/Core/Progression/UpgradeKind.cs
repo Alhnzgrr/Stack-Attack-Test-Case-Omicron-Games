@@ -8,6 +8,8 @@ namespace StackAttack.Core
         ProjectileSize,
         Pierce,
         MaxHealth,
-        Greed
+        Greed,
+        BoomerangCount,
+        RocketDamage
     }
 }
