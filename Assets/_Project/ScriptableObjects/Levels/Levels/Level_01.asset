@@ -12,122 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1997b458eee32ef409618caa6908b4a0, type: 3}
   m_Name: Level_01
   m_EditorClassIdentifier: 
-  levelLength: 22
+  levelLength: 20
   scrollSpeed: 0.4
   entries:
-  - distance: 0
-    xPosition: 0
-    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
-    hp: 6
-    layout: 0
-    count: 1
-    spacing: 1
-    radius: 1
-    motion: 0
-    motionSpeed: 0
-  - distance: 0.8
-    xPosition: -1.5
-    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
-    hp: 6
-    layout: 0
-    count: 1
-    spacing: 1
-    radius: 1
-    motion: 0
-    motionSpeed: 0
-  - distance: 1.6
-    xPosition: 1.5
-    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
-    hp: 6
-    layout: 0
-    count: 1
-    spacing: 1
-    radius: 1
-    motion: 0
-    motionSpeed: 0
-  - distance: 2
-    xPosition: 0
-    stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
-    hp: 3
-    layout: 1
-    count: 3
-    spacing: 1.3
-    radius: 1
-    motion: 0
-    motionSpeed: 0
-  - distance: 4
+  - distance: 1
     xPosition: -2
-    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
-    hp: 8
-    layout: 0
-    count: 1
-    spacing: 1
-    radius: 1
-    motion: 0
-    motionSpeed: 0
-  - distance: 5
-    xPosition: 2
-    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
-    hp: 8
-    layout: 0
-    count: 1
-    spacing: 1
-    radius: 1
-    motion: 0
-    motionSpeed: 0
-  - distance: 7
-    xPosition: 0
-    stackType: {fileID: 11400000, guid: 682f2bba37a5b2d4b85cd1b4c6aa431a, type: 2}
-    hp: 12
-    layout: 0
-    count: 1
-    spacing: 1
-    radius: 1
-    motion: 0
-    motionSpeed: 0
-  - distance: 8.5
-    xPosition: -1.5
-    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
-    hp: 8
-    layout: 0
-    count: 1
-    spacing: 1
-    radius: 1
-    motion: 0
-    motionSpeed: 0
-  - distance: 10
-    xPosition: 1.5
-    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
-    hp: 8
-    layout: 0
-    count: 1
-    spacing: 1
-    radius: 1
-    motion: 0
-    motionSpeed: 0
-  - distance: 10
-    xPosition: 0
-    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
-    hp: 8
-    layout: 1
-    count: 3
-    spacing: 1.5
-    radius: 1
-    motion: 0
-    motionSpeed: 0
-  - distance: 13
-    xPosition: -1.4
     stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
-    hp: 4
-    layout: 1
-    count: 2
-    spacing: 1.3
+    hp: 7
+    layout: 0
+    count: 1
+    spacing: 1
     radius: 1
     motion: 0
     motionSpeed: 0
-  - distance: 15
-    xPosition: 1.4
-    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+  - distance: 0.5
+    xPosition: -0
+    stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
     hp: 10
     layout: 0
     count: 1
@@ -135,13 +35,173 @@ MonoBehaviour:
     radius: 1
     motion: 0
     motionSpeed: 0
-  - distance: 17
-    xPosition: 0
-    stackType: {fileID: 11400000, guid: 682f2bba37a5b2d4b85cd1b4c6aa431a, type: 2}
-    hp: 16
+  - distance: 1
+    xPosition: 2
+    stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
+    hp: 7
     layout: 0
     count: 1
     spacing: 1
     radius: 1
     motion: 0
     motionSpeed: 0
+  - distance: 3
+    xPosition: -2
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 6
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 3
+    xPosition: 2
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 6
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 2.5
+    xPosition: -0
+    stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
+    hp: 12
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 3.5
+    xPosition: -1
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 12
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 3.5
+    xPosition: 1
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 12
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 6.5
+    xPosition: -2
+    stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
+    hp: 15
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 5.5
+    xPosition: 0
+    stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
+    hp: 15
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 6.5
+    xPosition: 2
+    stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
+    hp: 15
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 11.5
+    xPosition: -0
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 30
+    layout: 1
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 1
+    motionSpeed: 1
+  - distance: 14
+    xPosition: -2
+    stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
+    hp: 15
+    layout: 1
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 1
+    motionSpeed: 1
+  - distance: 5
+    xPosition: -1
+    stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
+    hp: 12
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 5
+    xPosition: 1
+    stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
+    hp: 12
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 9
+    xPosition: -1
+    stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
+    hp: 12
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 9
+    xPosition: 1
+    stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
+    hp: 12
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 8
+    xPosition: -0
+    stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
+    hp: 6
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+  - distance: 16.5
+    xPosition: 1.5
+    stackType: {fileID: 11400000, guid: 682f2bba37a5b2d4b85cd1b4c6aa431a, type: 2}
+    hp: 60
+    layout: 1
+    count: 2
+    spacing: 1
+    radius: 1
+    motion: 1
+    motionSpeed: 1

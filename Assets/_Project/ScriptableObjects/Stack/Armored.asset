@@ -16,7 +16,8 @@ MonoBehaviour:
   plateColor: {r: 0.3, g: 0.5, b: 0.75, a: 1}
   plateSize: {x: 1, y: 1}
   plateStep: 0.1
-  contactDamage: 2
+  contactDamage: 1
   hitFlashDuration: 0.12
   hitFlashStrength: 0.8
   hitPunchScale: 0.08
+  shardsPerPlate: 7
