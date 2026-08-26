@@ -7,6 +7,7 @@ namespace StackAttack.Level
     public class LevelEditorWindow : EditorWindow
     {
         private const float PanelWidth = 320f;
+        private const int BossGuardSlots = 8;
         private const float GutterWidth = 44f;
         private const int MajorStep = 5;
 
@@ -16,6 +17,8 @@ namespace StackAttack.Level
         private static readonly Color CentreLine = new Color(1f, 1f, 1f, 0.12f);
         private static readonly Color EdgeLine = new Color(0.35f, 0.75f, 1f, 0.55f);
         private static readonly Color GroupFill = new Color(1f, 1f, 1f, 0.05f);
+        private static readonly Color BossFill = new Color(0.95f, 0.25f, 0.3f, 0.12f);
+        private static readonly Color BossOutline = new Color(0.95f, 0.3f, 0.35f, 0.9f);
         private static readonly Color SweepFill = new Color(0.95f, 0.75f, 0.1f, 0.07f);
         private static readonly Color MissingType = new Color(0.95f, 0.75f, 0.1f, 0.9f);
         private static readonly Color GroupOutline = new Color(0f, 0f, 0f, 0.55f);
@@ -34,7 +37,12 @@ namespace StackAttack.Level
         private SerializedProperty _entries;
 
         private StackTypeConfig _brushType;
+        private BossConfig _brushBoss;
+        private bool _brushIsBoss;
         private int _brushHp = 12;
+        private int _brushGuardCount = 6;
+        private float _brushGuardRadius = 1.5f;
+        private float _brushGuardSpin = 45f;
         private int _snapIndex = 3;
         private float _zoom = 44f;
         private int _selected = -1;
@@ -152,6 +160,22 @@ namespace StackAttack.Level
             _brushHp = EditorGUILayout.IntField(_brushHp, GUILayout.Width(40f));
 
             GUILayout.Space(12f);
+            _brushIsBoss = GUILayout.Toggle(_brushIsBoss, "Boss", EditorStyles.toolbarButton, GUILayout.Width(44f));
+            _brushBoss = (BossConfig)EditorGUILayout.ObjectField(_brushBoss, typeof(BossConfig), false, GUILayout.Width(130f));
+
+            if (_brushIsBoss)
+            {
+                GUILayout.Label("Guards", EditorStyles.miniLabel, GUILayout.Width(44f));
+                _brushGuardCount = EditorGUILayout.IntSlider(_brushGuardCount, 0, BossGuardSlots, GUILayout.Width(120f));
+
+                GUILayout.Label("R", EditorStyles.miniLabel, GUILayout.Width(12f));
+                _brushGuardRadius = EditorGUILayout.FloatField(_brushGuardRadius, GUILayout.Width(40f));
+
+                GUILayout.Label("Spin", EditorStyles.miniLabel, GUILayout.Width(28f));
+                _brushGuardSpin = EditorGUILayout.FloatField(_brushGuardSpin, GUILayout.Width(40f));
+            }
+
+            GUILayout.Space(12f);
             GUILayout.Label("Snap", EditorStyles.miniLabel, GUILayout.Width(34f));
             _snapIndex = EditorGUILayout.Popup(_snapIndex, SnapLabels, EditorStyles.toolbarPopup, GUILayout.Width(56f));
 
@@ -160,6 +184,8 @@ namespace StackAttack.Level
 
             if (_brushType == null)
                 GUILayout.Label("Brush needs a stack type", EditorStyles.miniLabel);
+            else if (_brushIsBoss && _brushBoss == null)
+                GUILayout.Label("Boss brush needs a boss config", EditorStyles.miniLabel);
 
             GUILayout.FlexibleSpace();
             EditorGUILayout.EndHorizontal();
@@ -232,9 +258,9 @@ namespace StackAttack.Level
             Vector2 position = PositionOf(index);
             Rect box = ToPixels(Footprint(entry, position));
 
-            EditorGUI.DrawRect(box, entry.motion == GroupMotion.Horizontal ? SweepFill : GroupFill);
+            EditorGUI.DrawRect(box, Fill(entry));
 
-            if (entry.stackType == null)
+            if (entry.stackType == null && entry.boss == null)
                 EditorGUI.DrawRect(box, MissingType);
             else
                 DrawMembers(entry, position);
@@ -242,7 +268,7 @@ namespace StackAttack.Level
             if (Conflicts(index))
                 DrawOutline(box, ConflictOutline, 2f);
             else
-                DrawOutline(box, GroupOutline, 1f);
+                DrawOutline(box, entry.boss != null ? BossOutline : GroupOutline, 1f);
 
             if (index == _selected)
                 DrawOutline(new Rect(box.x + 2f, box.y + 2f, box.width - 4f, box.height - 4f), SelectedOutline, 2f);
@@ -250,10 +276,21 @@ namespace StackAttack.Level
             GUI.Label(box, Caption(entry), CaptionStyle());
         }
 
+        private static Color Fill(StackGroupEntry entry)
+        {
+            if (entry.boss != null)
+                return BossFill;
+
+            return entry.motion == GroupMotion.Horizontal ? SweepFill : GroupFill;
+        }
+
         // A capped entry earns a mark on the grid itself. The hp above the cap breaks
         // no plate, so it is damage the player deals for nothing.
         private static string Caption(StackGroupEntry entry)
         {
+            if (entry.boss != null)
+                return "BOSS";
+
             if (entry.stackType == null)
                 return "!";
 
@@ -264,6 +301,12 @@ namespace StackAttack.Level
 
         private void DrawMembers(StackGroupEntry entry, Vector2 position)
         {
+            if (entry.boss != null)
+            {
+                DrawBoss(entry, position);
+                return;
+            }
+
             float half = entry.stackType.PlateSize.x * 0.5f;
             float height = StackGroupGeometry.StackHeight(entry);
             int count = StackGroupGeometry.MemberCount(entry);
@@ -274,6 +317,33 @@ namespace StackAttack.Level
                 Rect member = new Rect(position.x + offset.x - half, position.y + offset.y, half * 2f, height);
 
                 EditorGUI.DrawRect(ToPixels(member), entry.stackType.PlateColor);
+            }
+        }
+
+        // The body sits on the line the entry was placed on and the guards ring it,
+        // which is exactly what the fight looks like once it is standing there.
+        private void DrawBoss(StackGroupEntry entry, Vector2 position)
+        {
+            float bodyHalf = entry.boss.BodySize * 0.5f;
+            Rect body = new Rect(position.x - bodyHalf, position.y - bodyHalf, entry.boss.BodySize, entry.boss.BodySize);
+
+            EditorGUI.DrawRect(ToPixels(body), entry.boss.BodyColor);
+
+            if (entry.stackType == null)
+                return;
+
+            StackGroupEntry ring = StackGroupGeometry.GuardRing(entry);
+
+            float half = entry.stackType.PlateSize.x * 0.5f;
+            float height = StackGroupGeometry.StackHeight(ring);
+            int count = Mathf.Max(ring.count, 0);
+
+            for (int i = 0; i < count; i++)
+            {
+                Vector2 offset = StackGroupGeometry.MemberOffset(ring, i, count);
+                Rect guard = new Rect(position.x + offset.x - half, position.y + offset.y - height * 0.5f, half * 2f, height);
+
+                EditorGUI.DrawRect(ToPixels(guard), entry.stackType.PlateColor);
             }
         }
 
@@ -289,6 +359,18 @@ namespace StackAttack.Level
         // units, so nothing here is rounded to a cell and nothing can go missing.
         private Rect Footprint(StackGroupEntry entry, Vector2 position)
         {
+            // A boss holds its ground instead of scrolling past, so its footprint is
+            // the arena it stands in, centred on the line it was placed on.
+            if (entry.boss != null)
+            {
+                float arenaHalf = StackGroupGeometry.HalfWidth(entry);
+                float reach = Mathf.Max(
+                    entry.boss.BodySize * 0.5f,
+                    entry.radius + StackGroupGeometry.StackHeight(StackGroupGeometry.GuardRing(entry)) * 0.5f);
+
+                return new Rect(position.x - arenaHalf, position.y - reach, arenaHalf * 2f, reach * 2f);
+            }
+
             if (entry.stackType == null)
                 return new Rect(position.x - 0.5f, position.y, 1f, 1f);
 
@@ -445,6 +527,9 @@ namespace StackAttack.Level
 
         private float BrushHalfWidth()
         {
+            if (_brushIsBoss && _brushBoss != null)
+                return Mathf.Max(_brushBoss.BodySize * 0.5f, _brushGuardRadius + 0.5f);
+
             return _brushType != null ? _brushType.PlateSize.x * 0.5f : 0.5f;
         }
 
@@ -483,6 +568,12 @@ namespace StackAttack.Level
                 return;
             }
 
+            if (_brushIsBoss && _brushBoss == null)
+            {
+                Debug.LogWarning("Pick a Boss Config next to the Boss button before placing a boss.");
+                return;
+            }
+
             int index = _entries.arraySize;
             _entries.InsertArrayElementAtIndex(index);
 
@@ -492,12 +583,13 @@ namespace StackAttack.Level
             entry.FindPropertyRelative("xPosition").floatValue = position.x;
             entry.FindPropertyRelative("stackType").objectReferenceValue = _brushType;
             entry.FindPropertyRelative("hp").intValue = _brushHp;
-            entry.FindPropertyRelative("layout").enumValueIndex = (int)GroupLayout.Single;
-            entry.FindPropertyRelative("count").intValue = 1;
+            entry.FindPropertyRelative("layout").enumValueIndex = (int)(_brushIsBoss ? GroupLayout.Ring : GroupLayout.Single);
+            entry.FindPropertyRelative("count").intValue = _brushIsBoss ? _brushGuardCount : 1;
             entry.FindPropertyRelative("spacing").floatValue = 1f;
-            entry.FindPropertyRelative("radius").floatValue = 1f;
+            entry.FindPropertyRelative("radius").floatValue = _brushIsBoss ? _brushGuardRadius : 1f;
             entry.FindPropertyRelative("motion").enumValueIndex = (int)GroupMotion.Static;
-            entry.FindPropertyRelative("motionSpeed").floatValue = 0f;
+            entry.FindPropertyRelative("motionSpeed").floatValue = _brushIsBoss ? _brushGuardSpin : 0f;
+            entry.FindPropertyRelative("boss").objectReferenceValue = _brushIsBoss ? _brushBoss : null;
 
             _serialized.ApplyModifiedProperties();
             _selected = index;
@@ -518,19 +610,31 @@ namespace StackAttack.Level
 
             if (_selected < 0 || _selected >= _entries.arraySize)
             {
-                EditorGUILayout.HelpBox("Click empty space to place a stack, or a stack to select and drag it.", MessageType.None);
+                EditorGUILayout.HelpBox("Click empty space to place a stack, or a stack to select and drag it. Turn on Boss in the toolbar to place a boss instead.", MessageType.None);
                 EditorGUILayout.EndVertical();
                 return;
             }
 
-            EditorGUILayout.LabelField("Selected Entry " + _selected, EditorStyles.boldLabel);
-
             SerializedProperty entry = _entries.GetArrayElementAtIndex(_selected);
             SerializedProperty layout = entry.FindPropertyRelative("layout");
             SerializedProperty motion = entry.FindPropertyRelative("motion");
+            SerializedProperty boss = entry.FindPropertyRelative("boss");
+
+            bool isBoss = boss.objectReferenceValue != null;
+
+            EditorGUILayout.LabelField(isBoss ? "Selected Boss " + _selected : "Selected Entry " + _selected, EditorStyles.boldLabel);
 
             EditorGUILayout.PropertyField(entry.FindPropertyRelative("distance"));
             EditorGUILayout.PropertyField(entry.FindPropertyRelative("xPosition"));
+            EditorGUILayout.PropertyField(boss);
+
+            if (isBoss)
+            {
+                DrawBossPanel(entry);
+                EditorGUILayout.EndVertical();
+                return;
+            }
+
             EditorGUILayout.PropertyField(entry.FindPropertyRelative("stackType"));
             EditorGUILayout.PropertyField(entry.FindPropertyRelative("hp"));
             EditorGUILayout.PropertyField(layout);
@@ -576,6 +680,44 @@ namespace StackAttack.Level
             }
 
             EditorGUILayout.EndVertical();
+        }
+
+        // The boss keeps the stack fields, but they read as the ring around it, so the
+        // panel says guard rather than making the designer translate.
+        private void DrawBossPanel(SerializedProperty entry)
+        {
+            EditorGUILayout.PropertyField(entry.FindPropertyRelative("stackType"), new GUIContent("Guard Type"));
+            EditorGUILayout.PropertyField(entry.FindPropertyRelative("hp"), new GUIContent("Guard Hp"));
+            EditorGUILayout.PropertyField(entry.FindPropertyRelative("count"), new GUIContent("Guard Count"));
+            EditorGUILayout.PropertyField(entry.FindPropertyRelative("radius"), new GUIContent("Guard Radius"));
+            EditorGUILayout.PropertyField(entry.FindPropertyRelative("motionSpeed"), new GUIContent("Guard Spin"));
+
+            StackGroupEntry selected = _config.Entries[_selected];
+            StackGroupEntry ring = StackGroupGeometry.GuardRing(selected);
+
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Boss Hp", selected.boss.MaxHp.ToString("0"));
+            EditorGUILayout.LabelField("Guard Plates", StackGroupGeometry.PlateCount(ring).ToString());
+            EditorGUILayout.LabelField("Half Width", StackGroupGeometry.HalfWidth(selected).ToString("0.00"));
+            EditorGUILayout.LabelField("Arrives At", Seconds(selected.distance));
+
+            if (selected.count > BossGuardSlots)
+                EditorGUILayout.HelpBox("The boss prefab carries " + BossGuardSlots + " guard slots, so anything above that is ignored.", MessageType.Warning);
+
+            if (StackGroupGeometry.IsCapped(ring))
+                EditorGUILayout.HelpBox(CapWarning(ring), MessageType.Warning);
+
+            EditorGUILayout.HelpBox("The boss holds its ground and the level cannot end while it is alive. Guard Spin is degrees per second around the body; 0 leaves the ring standing still.", MessageType.Info);
+
+            EditorGUILayout.Space();
+
+            if (GUILayout.Button("Delete Boss"))
+            {
+                _entries.DeleteArrayElementAtIndex(_selected);
+                _serialized.ApplyModifiedProperties();
+                _selected = -1;
+                _dragIndex = -1;
+            }
         }
 
         private static string CapWarning(StackGroupEntry entry)

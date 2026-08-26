@@ -9,6 +9,7 @@ namespace StackAttack.Level
     {
         private LevelSet _levelSet;
         private IStackSpawner _spawner;
+        private IBossArena _boss;
         private LevelProgress _progress;
         private RunScore _score;
         private IProgressRepository _repository;
@@ -22,6 +23,7 @@ namespace StackAttack.Level
         public void Construct(
             LevelSet levelSet,
             IStackSpawner spawner,
+            IBossArena boss,
             LevelProgress progress,
             RunScore score,
             IProgressRepository repository,
@@ -29,6 +31,7 @@ namespace StackAttack.Level
         {
             _levelSet = levelSet;
             _spawner = spawner;
+            _boss = boss;
             _progress = progress;
             _score = score;
             _repository = repository;
@@ -57,6 +60,7 @@ namespace StackAttack.Level
             // Nothing ticks the spawner outside a run, so anything left on the field
             // would drift on forever behind the screen that just came up.
             _spawner.Clear();
+            _boss.Clear();
         }
 
         private void Begin()
@@ -74,6 +78,7 @@ namespace StackAttack.Level
             _nextEntry = 0;
 
             _spawner.Clear();
+            _boss.Clear();
         }
 
         private void Update()
@@ -87,9 +92,9 @@ namespace StackAttack.Level
             _spawner.Tick();
 
             // The bar only measures how far the level has scrolled. Once the last
-            // group is out there is nothing left to wait for but the playfield, so an
+            // entry is out there is nothing left to wait for but the playfield, so an
             // empty field ends the level rather than the clock running down.
-            if (_nextEntry >= _entries.Length && !_spawner.HasActiveGroups)
+            if (_nextEntry >= _entries.Length && !_spawner.HasActiveGroups && !_boss.IsActive)
                 Win();
         }
 
@@ -99,7 +104,15 @@ namespace StackAttack.Level
 
             while (_nextEntry < _entries.Length && _entries[_nextEntry].distance <= _progress.Travelled)
             {
-                _spawner.Spawn(_entries[_nextEntry], _config.ScrollSpeed);
+                StackGroupEntry entry = _entries[_nextEntry];
+
+                // A boss entry stops where the level put it instead of scrolling
+                // through, so the arena takes it rather than the spawner.
+                if (entry.boss != null)
+                    _boss.Begin(entry);
+                else
+                    _spawner.Spawn(entry, _config.ScrollSpeed);
+
                 _nextEntry++;
             }
         }

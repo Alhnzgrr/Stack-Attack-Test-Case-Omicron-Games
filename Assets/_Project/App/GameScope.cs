@@ -21,6 +21,7 @@ namespace StackAttack.App
         [SerializeField] private LevelSet levelSet;
         [SerializeField] private UpgradePool upgradePool;
         [SerializeField] private StackGroup stackGroupPrefab;
+        [SerializeField] private BossBehaviour bossPrefab;
         [SerializeField] private int targetFrameRate = 60;
 
         protected override void Configure(IContainerBuilder builder)
@@ -32,7 +33,7 @@ namespace StackAttack.App
             new PlayerInstaller(playerConfig, weaponConfig, healthConfig).Install(builder);
             new PlayfieldInstaller().Install(builder);
             new UpgradesInstaller(upgradePool).Install(builder);
-            new StackEnemyInstaller(stackGroupPrefab).Install(builder);
+            new StackEnemyInstaller(stackGroupPrefab, bossPrefab).Install(builder);
             new PersistenceInstaller().Install(builder);
             new LevelInstaller(levelSet).Install(builder);
             new ScreensInstaller().Install(builder);

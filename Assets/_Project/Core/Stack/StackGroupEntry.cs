@@ -30,5 +30,9 @@ namespace StackAttack.Core
         public float radius;
         public GroupMotion motion;
         public float motionSpeed;
+
+        // Set on an entry that places a boss instead of a stack group. The stack
+        // fields above then describe the ring of guards standing around it.
+        public BossConfig boss;
     }
 }

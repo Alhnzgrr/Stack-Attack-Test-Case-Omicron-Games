@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bb2fc0331ac5f340a5220b3043c00a5, type: 3}
+  m_Name: BossConfig
+  m_EditorClassIdentifier: 
+  maxHp: 350
+  bodyColor: {r: 0.35, g: 0.85, b: 0.4, a: 1}
+  bodySize: 2.2
+  holdY: 1.6
+  entrySpeed: 2.5
+  swayRange: 1.2
+  swaySpeed: 0.8
+  shotType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+  shotHp: 10
+  shotCount: 1
+  shotSpacing: 1.1
+  shotSpeed: 2.6
+  shotInterval: 2.4
+  firstShotDelay: 1.5
+  deathShards: 60

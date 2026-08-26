@@ -71,16 +71,38 @@ namespace StackAttack.Level
             SerializedProperty radius = entry.FindPropertyRelative("radius");
             SerializedProperty motion = entry.FindPropertyRelative("motion");
             SerializedProperty motionSpeed = entry.FindPropertyRelative("motionSpeed");
+            SerializedProperty boss = entry.FindPropertyRelative("boss");
 
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
 
+            string title = boss.objectReferenceValue != null
+                ? "BOSS"
+                : ((GroupLayout)layout.enumValueIndex).ToString();
+
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField(index + " - " + (GroupLayout)layout.enumValueIndex, EditorStyles.boldLabel);
+            EditorGUILayout.LabelField(index + " - " + title, EditorStyles.boldLabel);
             bool remove = GUILayout.Button("X", GUILayout.Width(24f));
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.PropertyField(distance);
             EditorGUILayout.PropertyField(xPosition);
+            EditorGUILayout.PropertyField(boss);
+
+            if (boss.objectReferenceValue != null)
+            {
+                EditorGUILayout.PropertyField(stackType, new GUIContent("Guard Type"));
+                EditorGUILayout.PropertyField(hp, new GUIContent("Guard Hp"));
+                EditorGUILayout.PropertyField(count, new GUIContent("Guard Count"));
+                EditorGUILayout.PropertyField(radius, new GUIContent("Guard Radius"));
+                EditorGUILayout.PropertyField(motionSpeed, new GUIContent("Guard Spin"));
+
+                DrawPlateReadout(stackType, hp);
+
+                EditorGUILayout.EndVertical();
+
+                return remove;
+            }
+
             EditorGUILayout.PropertyField(stackType);
             EditorGUILayout.PropertyField(hp);
             EditorGUILayout.PropertyField(layout);

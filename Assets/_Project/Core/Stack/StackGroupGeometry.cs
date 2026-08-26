@@ -53,10 +53,15 @@ namespace StackAttack.Core
 
         public static float HalfWidth(StackGroupEntry entry)
         {
+            float half = entry.stackType != null ? entry.stackType.PlateSize.x * 0.5f : 0f;
+
+            // A boss is as wide as its body or as the ring of guards standing around
+            // it, whichever of the two reaches further out.
+            if (entry.boss != null)
+                return Mathf.Max(entry.boss.BodySize * 0.5f, entry.radius + half);
+
             if (entry.stackType == null)
                 return 0f;
-
-            float half = entry.stackType.PlateSize.x * 0.5f;
 
             if (entry.layout == GroupLayout.Row)
                 return (MemberCount(entry) - 1) * 0.5f * entry.spacing + half;
@@ -65,6 +70,21 @@ namespace StackAttack.Core
                 return entry.radius + half;
 
             return half;
+        }
+
+        // A boss entry describes its guards with the fields a ring group uses, so
+        // this is the ring it stands inside.
+        public static StackGroupEntry GuardRing(StackGroupEntry entry)
+        {
+            return new StackGroupEntry
+            {
+                stackType = entry.stackType,
+                hp = entry.hp,
+                layout = GroupLayout.Ring,
+                count = entry.count,
+                radius = entry.radius,
+                boss = entry.boss
+            };
         }
 
         public static Vector2 MemberOffset(StackGroupEntry entry, int index, int count)

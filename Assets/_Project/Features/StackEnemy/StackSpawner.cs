@@ -34,9 +34,16 @@ namespace StackAttack.StackEnemy
 
         public void Spawn(StackGroupEntry entry, float descentSpeed)
         {
+            SpawnAt(entry, descentSpeed, _playfield.SpawnY);
+        }
+
+        // A level pushes its groups in from above the screen, but a boss throws them
+        // from wherever it is standing, so the line they start on is the caller's.
+        public void SpawnAt(StackGroupEntry entry, float descentSpeed, float spawnY)
+        {
             StackGroup group = _pool.Get();
 
-            group.Setup(entry, _playfield.HalfWidth, _playfield.SpawnY, descentSpeed, _score, _shards);
+            group.Setup(entry, _playfield.HalfWidth, spawnY, descentSpeed, _score, _shards);
             _active.Add(group);
         }
 
