@@ -10,6 +10,7 @@ namespace StackAttack.Level
         private LevelSet _levelSet;
         private IStackSpawner _spawner;
         private LevelProgress _progress;
+        private RunScore _score;
         private IProgressRepository _repository;
         private GameStateMachine _state;
 
@@ -22,12 +23,14 @@ namespace StackAttack.Level
             LevelSet levelSet,
             IStackSpawner spawner,
             LevelProgress progress,
+            RunScore score,
             IProgressRepository repository,
             GameStateMachine state)
         {
             _levelSet = levelSet;
             _spawner = spawner;
             _progress = progress;
+            _score = score;
             _repository = repository;
             _state = state;
         }
@@ -46,7 +49,14 @@ namespace StackAttack.Level
         private void OnStateChanged(GameState state)
         {
             if (state == GameState.Playing)
+            {
                 Begin();
+                return;
+            }
+
+            // Nothing ticks the spawner outside a run, so anything left on the field
+            // would drift on forever behind the screen that just came up.
+            _spawner.Clear();
         }
 
         private void Begin()
@@ -56,6 +66,8 @@ namespace StackAttack.Level
 
             _entries = _config.Entries.ToArray();
             Array.Sort(_entries, LevelConfig.CompareByDistance);
+
+            _score.CostScale = _config.UpgradeCostScale;
 
             _progress.Length = _config.LevelLength;
             _progress.Travelled = 0f;
@@ -71,15 +83,13 @@ namespace StackAttack.Level
             if (deltaTime <= 0f || _state.Current != GameState.Playing)
                 return;
 
-            if (!_progress.IsCompleted)
-                Advance(deltaTime);
-
+            Advance(deltaTime);
             _spawner.Tick();
 
-            // A full bar only means the last group has spawned. Ending there would
-            // close the level with stacks still on screen, so the win waits for the
-            // playfield to empty as well.
-            if (_progress.IsCompleted && !_spawner.HasActiveGroups)
+            // The bar only measures how far the level has scrolled. Once the last
+            // group is out there is nothing left to wait for but the playfield, so an
+            // empty field ends the level rather than the clock running down.
+            if (_nextEntry >= _entries.Length && !_spawner.HasActiveGroups)
                 Win();
         }
 
@@ -96,6 +106,10 @@ namespace StackAttack.Level
 
         private void Win()
         {
+            // The level is over early by design, so the bar is filled rather than
+            // left short of the end it never had to reach.
+            _progress.Travelled = _progress.Length;
+
             _repository.SaveLastLevelIndex(Mathf.Min(_progress.LevelIndex + 1, _levelSet.Count - 1));
             _state.Set(GameState.Won);
         }

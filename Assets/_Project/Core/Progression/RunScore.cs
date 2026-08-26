@@ -25,9 +25,13 @@ namespace StackAttack.Core
 
         public float Multiplier { get; set; }
 
+        // Set per level and deliberately left alone by Reset, so it does not matter
+        // whether the level or the upgrade service reacts to the state change first.
+        public float CostScale { get; set; } = 1f;
+
         // Each upgrade costs more than the last, so the choices thin out over a level
         // instead of arriving in an accelerating flood near the end.
-        public int NextCost => _firstCost + _costGrowth * EarnedUpgrades;
+        public int NextCost => Mathf.Max(Mathf.RoundToInt((_firstCost + _costGrowth * EarnedUpgrades) * CostScale), 1);
 
         public float Normalized => Mathf.Clamp01((float)_towardsNext / NextCost);
 
