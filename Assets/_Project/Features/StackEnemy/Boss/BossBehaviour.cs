@@ -21,8 +21,11 @@ namespace StackAttack.StackEnemy
 
         private BossConfig _config;
         private IStackSpawner _spawner;
+        // Held only to hand on to the guards. The boss itself pays nothing for
+        // being hit; the stacks it throws are what the player scores on.
         private IScoreSink _score;
         private IShardBurst _shards;
+        private IAudioService _audio;
 
         private StackGroupEntry _shot;
         private Vector3[] _baseOffsets;
@@ -30,7 +33,6 @@ namespace StackAttack.StackEnemy
         private float _guardSpin;
         private float _spinAngle;
         private float _hp;
-        private float _unscored;
         private float _swayTime;
         private float _swayRange;
         private float _swayCentre;
@@ -49,15 +51,15 @@ namespace StackAttack.StackEnemy
                 _guardBounds[i] = _members[i].GetComponent<BoxCollider2D>();
         }
 
-        public void Setup(StackGroupEntry entry, PlayfieldConfig playfield, IStackSpawner spawner, IScoreSink score, IShardBurst shards)
+        public void Setup(StackGroupEntry entry, PlayfieldConfig playfield, IStackSpawner spawner, IScoreSink score, IShardBurst shards, IAudioService audio)
         {
             _config = entry.boss;
             _spawner = spawner;
             _score = score;
             _shards = shards;
+            _audio = audio;
 
             _hp = _config.MaxHp;
-            _unscored = 0f;
             _swayTime = 0f;
             _arrived = false;
             _feedback = new HitFeedback(hitFlashDuration, hitFlashStrength, hitPunchScale);
@@ -108,7 +110,7 @@ namespace StackAttack.StackEnemy
                 if (!used)
                     continue;
 
-                _members[i].Setup(entry.stackType, entry.hp, _score, _shards);
+                _members[i].Setup(entry.stackType, entry.hp, _score, _shards, _audio);
 
                 Vector2 offset = StackGroupGeometry.MemberOffset(ring, i, ring.count);
                 _baseOffsets[i] = new Vector3(offset.x, offset.y, 0f);
@@ -174,6 +176,8 @@ namespace StackAttack.StackEnemy
 
             _arrived = true;
             _shotTimer = _config.FirstShotDelay;
+
+            _audio.Play(GameSound.BossArrive);
         }
 
         // The guards turn around the body instead of the body turning, so the boss
@@ -223,18 +227,6 @@ namespace StackAttack.StackEnemy
         {
             _hp = Mathf.Max(_hp - amount, 0f);
 
-            // A stack pays out a whole plate at a time. The boss has no plates to
-            // break, so it pays a point per hit point instead and carries the
-            // fraction over rather than rounding every shot in the players favour.
-            _unscored += amount;
-            int points = Mathf.FloorToInt(_unscored);
-
-            if (points > 0)
-            {
-                _score.AddPoints(points);
-                _unscored -= points;
-            }
-
             ApplyHealth();
 
             if (_hp <= 0f)
@@ -243,6 +235,7 @@ namespace StackAttack.StackEnemy
                 return;
             }
 
+            _audio.Play(GameSound.BossHit);
             _feedback.Restart();
             ApplyFeedback();
         }
@@ -250,6 +243,7 @@ namespace StackAttack.StackEnemy
         private void Die()
         {
             _shards.Burst(body.transform.position, _config.BodyColor, _config.DeathShards);
+            _audio.Play(GameSound.BossDie);
             Destroy(gameObject);
         }
 

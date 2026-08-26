@@ -11,6 +11,7 @@ namespace StackAttack.Upgrades
         private readonly RunScore _score;
         private readonly WeaponStats _stats;
         private readonly PlayerHealth _health;
+        private readonly IAudioService _audio;
         private readonly GameStateMachine _state;
 
         private readonly List<UpgradeOption> _offer = new List<UpgradeOption>();
@@ -21,12 +22,14 @@ namespace StackAttack.Upgrades
             RunScore score,
             WeaponStats stats,
             PlayerHealth health,
+            IAudioService audio,
             GameStateMachine state)
         {
             _pool = pool;
             _score = score;
             _stats = stats;
             _health = health;
+            _audio = audio;
             _state = state;
 
             _state.Changed += OnStateChanged;
@@ -61,6 +64,8 @@ namespace StackAttack.Upgrades
         {
             if (!IsChoosing || index < 0 || index >= _offer.Count)
                 return;
+
+            _audio.Play(GameSound.UpgradeTaken);
 
             Apply(_offer[index]);
 
@@ -113,6 +118,8 @@ namespace StackAttack.Upgrades
             }
 
             IsChoosing = true;
+
+            _audio.Play(GameSound.UpgradeOffer);
 
             // Freezing time rather than routing through the state machine keeps the
             // choice a pause inside the level instead of a fourth game state.

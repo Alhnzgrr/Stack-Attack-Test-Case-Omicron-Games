@@ -429,6 +429,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &221335262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 221335263}
+  - component: {fileID: 221335264}
+  m_Layer: 0
+  m_Name: Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &221335263
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221335262}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1280443744}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &221335264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221335262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a76d74b187add4a489f227537006f1e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  voices: 8
 --- !u!1 &289391128
 GameObject:
   m_ObjectHideFlags: 0
@@ -1010,6 +1055,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   titleLabel: {fileID: 2126572401}
   hintLabel: {fileID: 1123623625}
+  titleDuration: 0.45
+  titleEntryScale: 0.6
+  titlePunch: 0.14
+  hintDelay: 0.25
+  hintDuration: 0.3
 --- !u!224 &599354801
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7399,6 +7449,7 @@ MonoBehaviour:
   healthConfig: {fileID: 11400000, guid: 2ace9309eb47d4f44a587158badad5ee, type: 2}
   levelSet: {fileID: 11400000, guid: 8b3e6797d131ba5469a08bf0eedfa7df, type: 2}
   upgradePool: {fileID: 11400000, guid: 2a90799fe3dec504ebdc5932447e0146, type: 2}
+  audioBank: {fileID: 11400000, guid: df9f8037eb099fb459872e18994b9021, type: 2}
   stackGroupPrefab: {fileID: 2945079107846993636, guid: cff2a6653c9302349a53b9e5c415f8b6, type: 3}
   bossPrefab: {fileID: 2768162021957432470, guid: ebea17ab3ea83724fb75368abe4d4f5a, type: 3}
   targetFrameRate: 60
@@ -7433,6 +7484,7 @@ Transform:
   m_Children:
   - {fileID: 1257662738}
   - {fileID: 1079919473}
+  - {fileID: 221335263}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1281486080
@@ -7526,7 +7578,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1387916630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8231,7 +8283,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   muzzle: {fileID: 740218925}
+  body: {fileID: 1488007602}
   projectilePrefab: {fileID: 7674225823345012114, guid: 2f1e02dd657829c4399a5feef15dad42, type: 3}
+  poolCapacity: 24
+  firePunchDuration: 0.15
+  firePunchScale: 0.1
 --- !u!114 &1841354705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8333,6 +8389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boomerangPrefab: {fileID: 2573145215947261444, guid: db8bc4da4ba177341a900a51aebcc9ed, type: 3}
   damage: 3
+  poolCapacity: 8
 --- !u!114 &1841354709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8346,6 +8403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rocketPrefab: {fileID: 8428287946362117830, guid: ebb1d2c6b5a173c46b8922d9cc2095e6, type: 3}
+  poolCapacity: 8
 --- !u!1 &1884334508
 GameObject:
   m_ObjectHideFlags: 0

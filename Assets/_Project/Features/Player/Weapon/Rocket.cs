@@ -15,16 +15,20 @@ namespace StackAttack.Player
         [SerializeField] private int blastShards = 20;
         [SerializeField] private Color blastColor = new Color(1f, 0.6f, 0.15f, 1f);
 
+        private ThrownPool<Rocket> _pool;
         private IShardBurst _shards;
+        private IAudioService _audio;
         private Transform _target;
         private Vector3 _heading;
         private float _damage;
         private float _elapsed;
 
-        public void Launch(float damage, IShardBurst shards)
+        public void Launch(float damage, IShardBurst shards, IAudioService audio, ThrownPool<Rocket> pool)
         {
+            _pool = pool;
             _damage = damage;
             _shards = shards;
+            _audio = audio;
             _elapsed = 0f;
             _heading = Vector3.up;
             _target = Nearest(searchRadius);
@@ -91,6 +95,12 @@ namespace StackAttack.Player
         // upgrade read as weaker than it is on the stacks the player aimed at.
         private void Explode()
         {
+            // Going back to the pool first is what makes this safe to call twice: a
+            // rocket that runs out of life on the frame it touches a stack would
+            // otherwise blast the same target once for each reason.
+            if (!_pool.Release(this))
+                return;
+
             Collider2D[] found = Physics2D.OverlapCircleAll(transform.position, blastRadius);
 
             for (int i = 0; i < found.Length; i++)
@@ -100,7 +110,7 @@ namespace StackAttack.Player
             }
 
             _shards.Burst(transform.position, blastColor, blastShards);
-            Destroy(gameObject);
+            _audio.Play(GameSound.RocketBlast);
         }
     }
 }

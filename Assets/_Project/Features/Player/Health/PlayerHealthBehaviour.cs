@@ -14,17 +14,19 @@ namespace StackAttack.Player
         private PlayerHealth _health;
         private GameStateMachine _state;
         private HealthConfig _config;
+        private IAudioService _audio;
 
         private HitFeedback _feedback;
         private Color _baseColor;
         private Vector3 _baseScale;
 
         [Inject]
-        public void Construct(PlayerHealth health, GameStateMachine state, HealthConfig config)
+        public void Construct(PlayerHealth health, GameStateMachine state, HealthConfig config, IAudioService audio)
         {
             _health = health;
             _state = state;
             _config = config;
+            _audio = audio;
             _feedback = new HitFeedback(config.HitFlashDuration, config.HitFlashStrength, config.HitPunchScale);
         }
 
@@ -101,6 +103,8 @@ namespace StackAttack.Player
 
             if (!_health.TryTakeHit(hazard.ContactDamage))
                 return;
+
+            _audio.Play(GameSound.PlayerHit);
 
             if (_health.IsDead)
             {

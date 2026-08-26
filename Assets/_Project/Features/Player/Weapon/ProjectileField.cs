@@ -1,3 +1,4 @@
+using System;
 using StackAttack.Core;
 using UnityEngine;
 using VContainer;
@@ -16,23 +17,25 @@ namespace StackAttack.Player
 
         public Transform Root => transform;
 
+        // Everything the player throws outlives the level that threw it, and one round
+        // still in the air when the next level opens would hit its first stack. Three
+        // launchers share this field so the call to sweep up is raised once, in one
+        // place; each of them hands its own pool back what it still has out.
+        public event Action Cleared;
+
         private void Start()
         {
-            _state.Changed += Clear;
+            _state.Changed += OnStateChanged;
         }
 
         private void OnDestroy()
         {
-            _state.Changed -= Clear;
+            _state.Changed -= OnStateChanged;
         }
 
-        // Everything the player throws outlives the level that threw it, and one round
-        // still in the air when the next level opens would hit its first stack. Three
-        // launchers share this field so the sweeping up happens once, in one place.
-        private void Clear(GameState state)
+        private void OnStateChanged(GameState state)
         {
-            for (int i = transform.childCount - 1; i >= 0; i--)
-                Destroy(transform.GetChild(i).gameObject);
+            Cleared?.Invoke();
         }
     }
 }

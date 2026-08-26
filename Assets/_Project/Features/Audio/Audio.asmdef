@@ -1,7 +1,7 @@
 {
-    "name": "App",
-    "rootNamespace": "StackAttack.App",
-    "references": ["Core", "Audio", "Player", "Playfield", "StackEnemy", "Level", "Persistence", "Screens", "Upgrades", "VContainer", "UniTask"],
+    "name": "Audio",
+    "rootNamespace": "StackAttack.Audio",
+    "references": ["Core", "VContainer", "UniTask"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

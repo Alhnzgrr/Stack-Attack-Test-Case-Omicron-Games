@@ -16,14 +16,16 @@ namespace StackAttack.Player
 
         private readonly HashSet<IDamageable> _hit = new HashSet<IDamageable>();
 
+        private ThrownPool<Boomerang> _pool;
         private Transform _owner;
         private float _damage;
         private float _phase;
         private float _elapsed;
         private bool _returning;
 
-        public void Launch(Transform owner, float damage, float phase)
+        public void Launch(Transform owner, float damage, float phase, ThrownPool<Boomerang> pool)
         {
+            _pool = pool;
             _owner = owner;
             _damage = damage;
             _phase = phase;
@@ -55,7 +57,7 @@ namespace StackAttack.Player
             transform.Rotate(0f, 0f, spin * deltaTime);
 
             if (progress >= 1f)
-                Destroy(gameObject);
+                _pool.Release(this);
         }
 
         // Sine over half a period both carries it out and brings it home, and it lands

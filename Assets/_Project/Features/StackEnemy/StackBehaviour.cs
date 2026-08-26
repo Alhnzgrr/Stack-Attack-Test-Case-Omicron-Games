@@ -15,6 +15,7 @@ namespace StackAttack.StackEnemy
         private StackHealth _health;
         private IScoreSink _score;
         private IShardBurst _shards;
+        private IAudioService _audio;
         private HitFeedback _feedback;
         private Vector3 _baseScale;
         private Vector2 _plateSpriteSize;
@@ -30,11 +31,12 @@ namespace StackAttack.StackEnemy
             _plateSpriteSize = _plates[0].sprite.bounds.size;
         }
 
-        public void Setup(StackTypeConfig stackType, int hp, IScoreSink score, IShardBurst shards)
+        public void Setup(StackTypeConfig stackType, int hp, IScoreSink score, IShardBurst shards, IAudioService audio)
         {
             _type = stackType;
             _score = score;
             _shards = shards;
+            _audio = audio;
             // The prefab is the hard ceiling; the config can only ask for less.
             _health = new StackHealth(hp, stackType.HitsPerPlate, Mathf.Min(stackType.MaxPlates, _plates.Length));
             _feedback = new HitFeedback(
@@ -75,6 +77,7 @@ namespace StackAttack.StackEnemy
                 // went, and is thrown before Apply can switch a dead stack off.
                 Vector3 origin = transform.TransformPoint(new Vector3(0f, (platesBefore - 1) * _type.PlateStep, 0f));
                 _shards.Burst(origin, _type.PlateColor, broken * _type.ShardsPerPlate);
+                _audio.Play(GameSound.PlateBreak);
             }
 
             Apply();

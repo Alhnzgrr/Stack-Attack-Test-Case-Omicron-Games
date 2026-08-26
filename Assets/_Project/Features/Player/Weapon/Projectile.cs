@@ -10,12 +10,14 @@ namespace StackAttack.Player
         [SerializeField] private float speed = 14f;
         [SerializeField] private float maxDistance = 20f;
 
+        private ThrownPool<Projectile> _pool;
         private float _damage;
         private float _travelled;
         private int _hitsLeft;
 
-        public void Launch(float damage, float size, int pierce)
+        public void Launch(float damage, float size, int pierce, ThrownPool<Projectile> pool)
         {
+            _pool = pool;
             _damage = damage;
             _travelled = 0f;
             _hitsLeft = pierce + 1;
@@ -29,7 +31,7 @@ namespace StackAttack.Player
 
             _travelled += step;
             if (_travelled >= maxDistance)
-                Destroy(gameObject);
+                _pool.Release(this);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -41,7 +43,7 @@ namespace StackAttack.Player
 
             _hitsLeft--;
             if (_hitsLeft <= 0)
-                Destroy(gameObject);
+                _pool.Release(this);
         }
     }
 }

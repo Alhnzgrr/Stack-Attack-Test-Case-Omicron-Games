@@ -11,15 +11,17 @@ namespace StackAttack.StackEnemy
         private readonly PlayfieldConfig _playfield;
         private readonly IScoreSink _score;
         private readonly IShardBurst _shards;
+        private readonly IAudioService _audio;
         private readonly ObjectPool<StackGroup> _pool;
         private readonly List<StackGroup> _active = new List<StackGroup>();
 
-        public StackSpawner(StackGroup groupPrefab, PlayfieldConfig playfield, IScoreSink score, IShardBurst shards)
+        public StackSpawner(StackGroup groupPrefab, PlayfieldConfig playfield, IScoreSink score, IShardBurst shards, IAudioService audio)
         {
             _groupPrefab = groupPrefab;
             _playfield = playfield;
             _score = score;
             _shards = shards;
+            _audio = audio;
 
             _pool = new ObjectPool<StackGroup>(
                 Create,
@@ -43,7 +45,7 @@ namespace StackAttack.StackEnemy
         {
             StackGroup group = _pool.Get();
 
-            group.Setup(entry, _playfield.HalfWidth, spawnY, descentSpeed, _score, _shards);
+            group.Setup(entry, _playfield.HalfWidth, spawnY, descentSpeed, _score, _shards, _audio);
             _active.Add(group);
         }
 

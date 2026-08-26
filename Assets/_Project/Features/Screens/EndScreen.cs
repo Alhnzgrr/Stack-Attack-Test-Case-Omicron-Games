@@ -19,21 +19,25 @@ namespace StackAttack.Screens
         [SerializeField] private float hintDuration = 0.3f;
 
         private IPointerInput _input;
+        private IAudioService _audio;
         private GameStateMachine _state;
 
         private CancellationTokenSource _introCts;
         private bool _ready;
 
         [Inject]
-        public void Construct(IPointerInput input, GameStateMachine state)
+        public void Construct(IPointerInput input, IAudioService audio, GameStateMachine state)
         {
             _input = input;
+            _audio = audio;
             _state = state;
         }
 
         private void OnEnable()
         {
             bool won = _state.Current == GameState.Won;
+
+            _audio.Play(won ? GameSound.LevelWon : GameSound.LevelLost);
 
             titleLabel.SetText(won ? "Level Complete" : "Game Over");
             hintLabel.SetText(won ? "Tap for the next level" : "Tap to try again");
