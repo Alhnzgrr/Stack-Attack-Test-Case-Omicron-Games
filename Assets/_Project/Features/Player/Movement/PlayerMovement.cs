@@ -5,7 +5,7 @@ namespace StackAttack.Player
     public class PlayerMovement
     {
         private readonly PlayerConfig _config;
-        private readonly float _halfWidth;
+        private readonly float _limit;
 
         private float _targetX;
         private float _currentX;
@@ -14,10 +14,10 @@ namespace StackAttack.Player
         private float _tiltAngle;
         private float _tiltVelocity;
 
-        public PlayerMovement(PlayerConfig config, float halfWidth, float startX)
+        public PlayerMovement(PlayerConfig config, float limit, float startX)
         {
             _config = config;
-            _halfWidth = halfWidth;
+            _limit = limit;
             _targetX = startX;
             _currentX = startX;
         }
@@ -34,9 +34,9 @@ namespace StackAttack.Player
             if (deltaTime <= 0f)
                 return;
 
-            float worldDelta = normalizedDragDelta * _halfWidth * 2f * _config.DragSensitivity;
+            float worldDelta = normalizedDragDelta * _limit * 2f * _config.DragSensitivity;
 
-            _targetX = Mathf.Clamp(_targetX + worldDelta, -_halfWidth, _halfWidth);
+            _targetX = Mathf.Clamp(_targetX + worldDelta, -_limit, _limit);
             _currentX = Mathf.SmoothDamp(
                 _currentX,
                 _targetX,
