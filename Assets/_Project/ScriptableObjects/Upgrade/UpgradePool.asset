@@ -20,31 +20,31 @@ MonoBehaviour:
     category: BALL
     statName: FIRERATE
     amount: 0.15
-    icon: {fileID: -2413806693520163455, guid: 811dd6fb7a541654bb5f25ab35a7f11c, type: 3}
+    icon: {fileID: -6054832910203637687, guid: de0ee7ece880b694889de30ce052eaf2, type: 3}
     tint: {r: 1, g: 0.78, b: 0.2, a: 1}
   - kind: 1
     category: BALL
     statName: DAMAGE
     amount: 1
-    icon: {fileID: -2413806693520163455, guid: 811dd6fb7a541654bb5f25ab35a7f11c, type: 3}
+    icon: {fileID: -6054832910203637687, guid: de0ee7ece880b694889de30ce052eaf2, type: 3}
     tint: {r: 0.95, g: 0.32, b: 0.28, a: 1}
   - kind: 2
     category: BALL
     statName: PROJECTILES
     amount: 1
-    icon: {fileID: -2413806693520163455, guid: 811dd6fb7a541654bb5f25ab35a7f11c, type: 3}
+    icon: {fileID: -6054832910203637687, guid: de0ee7ece880b694889de30ce052eaf2, type: 3}
     tint: {r: 0.36, g: 0.72, b: 1, a: 1}
   - kind: 3
     category: BALL
     statName: SIZE
     amount: 0.4
-    icon: {fileID: -2413806693520163455, guid: 811dd6fb7a541654bb5f25ab35a7f11c, type: 3}
+    icon: {fileID: -6054832910203637687, guid: de0ee7ece880b694889de30ce052eaf2, type: 3}
     tint: {r: 0.45, g: 0.85, b: 0.6, a: 1}
   - kind: 4
     category: BALL
     statName: PIERCING
     amount: 1
-    icon: {fileID: -2413806693520163455, guid: 811dd6fb7a541654bb5f25ab35a7f11c, type: 3}
+    icon: {fileID: -6054832910203637687, guid: de0ee7ece880b694889de30ce052eaf2, type: 3}
     tint: {r: 0.72, g: 0.5, b: 1, a: 1}
   - kind: 5
     category: PLAYER
@@ -62,11 +62,11 @@ MonoBehaviour:
     category: SKILL
     statName: BOOMERANG
     amount: 1
-    icon: {fileID: 0}
+    icon: {fileID: 5967627293084474262, guid: 4e43ee9cf4b896c459963615b0b540e7, type: 3}
     tint: {r: 1, g: 0.82, b: 0.24, a: 1}
   - kind: 8
     category: SKILL
     statName: ROCKET
     amount: 4
-    icon: {fileID: 0}
+    icon: {fileID: 3995005538429554821, guid: b0f388d330939184b98642b1eea3226d, type: 3}
     tint: {r: 1, g: 0.45, b: 0.2, a: 1}
