@@ -15,6 +15,10 @@ https://github.com/user-attachments/assets/c5bfd950-74bd-435e-b0e3-8a9c04aebae6
 *Recorded from the Unity Editor: drag movement, auto-fire, plate destruction, a mid-run upgrade choice,
 the boss fight and the end screen.*
 
+**[Download the Android build (.apk)](../../releases/latest)** — ARM64, IL2CPP, ~40 MB. Sideload to
+install; it is signed with a debug keystore, so Android will ask you to allow installation from an
+unknown source.
+
 ---
 
 ## The Core Loop
@@ -239,6 +243,9 @@ Every tunable value is a ScriptableObject: `PlayfieldConfig`, `PlayerConfig`, `W
 
 Progress is stored in PlayerPrefs under `stackattack.last_level_index`; delete that key to start over from
 level 1.
+
+To play without opening the project, grab the APK from the
+[latest release](../../releases/latest).
 
 ### Tech
 
