@@ -12,47 +12,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1997b458eee32ef409618caa6908b4a0, type: 3}
   m_Name: Level_05
   m_EditorClassIdentifier: 
-  levelLength: 25
+  levelLength: 35
   scrollSpeed: 0.4
   upgradeCostScale: 1
   entries:
-  - distance: 2
-    xPosition: -2
-    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+  - distance: 2.5
+    xPosition: 0
+    stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
     hp: 12
-    layout: 0
-    count: 1
-    spacing: 1
+    layout: 1
+    count: 3
+    spacing: 1.2
     radius: 1
-    motion: 0
-    motionSpeed: 0
+    motion: 1
+    motionSpeed: 1.2
     boss: {fileID: 0}
-  - distance: 2
-    xPosition: -1
-    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
-    hp: 12
-    layout: 0
-    count: 1
-    spacing: 1
-    radius: 1
-    motion: 0
-    motionSpeed: 0
-    boss: {fileID: 0}
-  - distance: 1
+  - distance: 0.5
     xPosition: 0
     stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
-    hp: 12
-    layout: 0
-    count: 1
-    spacing: 1
+    hp: 16
+    layout: 1
+    count: 3
+    spacing: 1.1
     radius: 1
-    motion: 0
-    motionSpeed: 0
+    motion: 1
+    motionSpeed: 1.4
     boss: {fileID: 0}
-  - distance: 2
-    xPosition: 1
+  - distance: 5
+    xPosition: -0
+    stackType: {fileID: 11400000, guid: 682f2bba37a5b2d4b85cd1b4c6aa431a, type: 2}
+    hp: 24
+    layout: 1
+    count: 2
+    spacing: 1.2
+    radius: 1
+    motion: 1
+    motionSpeed: 1.6
+    boss: {fileID: 0}
+  - distance: 7.5
+    xPosition: -0
     stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
-    hp: 12
+    hp: 16
+    layout: 2
+    count: 4
+    spacing: 1
+    radius: 0.75
+    motion: 2
+    motionSpeed: 90
+    boss: {fileID: 0}
+  - distance: 10
+    xPosition: -2
+    stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
+    hp: 15
     layout: 0
     count: 1
     spacing: 1
@@ -60,10 +71,10 @@ MonoBehaviour:
     motion: 0
     motionSpeed: 0
     boss: {fileID: 0}
-  - distance: 2
+  - distance: 10
     xPosition: 2
-    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
-    hp: 12
+    stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
+    hp: 15
     layout: 0
     count: 1
     spacing: 1
@@ -71,14 +82,102 @@ MonoBehaviour:
     motion: 0
     motionSpeed: 0
     boss: {fileID: 0}
-  - distance: 9
+  - distance: 11
     xPosition: 0
     stackType: {fileID: 11400000, guid: 682f2bba37a5b2d4b85cd1b4c6aa431a, type: 2}
+    hp: 20
+    layout: 2
+    count: 5
+    spacing: 1
+    radius: 0.8
+    motion: 2
+    motionSpeed: 110
+    boss: {fileID: 0}
+  - distance: 14.5
+    xPosition: 0
+    stackType: {fileID: 11400000, guid: 682f2bba37a5b2d4b85cd1b4c6aa431a, type: 2}
+    hp: 20
+    layout: 3
+    count: 7
+    spacing: 1
+    radius: 0.87
+    motion: 2
+    motionSpeed: 120
+    boss: {fileID: 0}
+  - distance: 17
+    xPosition: -1.5
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 20
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+    boss: {fileID: 0}
+  - distance: 17
+    xPosition: 1.5
+    stackType: {fileID: 11400000, guid: a8da5e381bb5c09418d73804f1efd53c, type: 2}
+    hp: 20
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+    boss: {fileID: 0}
+  - distance: 20
+    xPosition: 0
+    stackType: {fileID: 11400000, guid: 682f2bba37a5b2d4b85cd1b4c6aa431a, type: 2}
+    hp: 24
+    layout: 3
+    count: 8
+    spacing: 1
+    radius: 0.9
+    motion: 2
+    motionSpeed: -140
+    boss: {fileID: 0}
+  - distance: 23
+    xPosition: -2
+    stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
     hp: 12
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+    boss: {fileID: 0}
+  - distance: 24
+    xPosition: 0
+    stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
+    hp: 12
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+    boss: {fileID: 0}
+  - distance: 23
+    xPosition: 2
+    stackType: {fileID: 11400000, guid: b742ba9ee206b3c408fd45e7d05806c2, type: 2}
+    hp: 12
+    layout: 0
+    count: 1
+    spacing: 1
+    radius: 1
+    motion: 0
+    motionSpeed: 0
+    boss: {fileID: 0}
+  - distance: 29.5
+    xPosition: -0
+    stackType: {fileID: 11400000, guid: 682f2bba37a5b2d4b85cd1b4c6aa431a, type: 2}
+    hp: 16
     layout: 0
     count: 8
     spacing: 1
-    radius: 1.75
+    radius: 1.6
     motion: 0
-    motionSpeed: 45
+    motionSpeed: 60
     boss: {fileID: 11400000, guid: 534e07ef7d98da84ba1813060f0aebc6, type: 2}
