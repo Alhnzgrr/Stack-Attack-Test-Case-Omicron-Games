@@ -2,6 +2,7 @@ using StackAttack.Core;
 using StackAttack.Level;
 using StackAttack.Persistence;
 using StackAttack.Player;
+using StackAttack.Playfield;
 using StackAttack.Screens;
 using StackAttack.StackEnemy;
 using StackAttack.Upgrades;
@@ -20,13 +21,16 @@ namespace StackAttack.App
         [SerializeField] private LevelSet levelSet;
         [SerializeField] private UpgradePool upgradePool;
         [SerializeField] private StackGroup stackGroupPrefab;
+        [SerializeField] private int targetFrameRate = 60;
 
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterInstance(playfieldConfig);
             builder.RegisterInstance(new GameStateMachine());
+            builder.RegisterEntryPoint<ApplicationBootstrap>().WithParameter(targetFrameRate);
 
             new PlayerInstaller(playerConfig, weaponConfig, healthConfig).Install(builder);
+            new PlayfieldInstaller().Install(builder);
             new UpgradesInstaller(upgradePool).Install(builder);
             new StackEnemyInstaller(stackGroupPrefab).Install(builder);
             new PersistenceInstaller().Install(builder);
