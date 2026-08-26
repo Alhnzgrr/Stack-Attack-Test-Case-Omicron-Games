@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &450121631405772601
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7475833555418601378}
+  - component: {fileID: 8165606138564515409}
+  m_Layer: 0
+  m_Name: GameLifetimeScope
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7475833555418601378
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450121631405772601}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8165606138564515409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 450121631405772601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c817c05d5b3547a42a253ea520a2420c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentReference:
+    TypeName: 
+  autoRun: 1
+  autoInjectGameObjects: []
+  playfieldConfig: {fileID: 11400000, guid: 7352bc385e799c244b392c7ed9557898, type: 2}
+  playerConfig: {fileID: 11400000, guid: b7f92f3ac956ecb43b4aa61b2300d478, type: 2}
+  weaponConfig: {fileID: 11400000, guid: f2cee24f54c82e247aadbec85c5ec8eb, type: 2}
+  healthConfig: {fileID: 11400000, guid: 2ace9309eb47d4f44a587158badad5ee, type: 2}
+  levelSet: {fileID: 11400000, guid: 8b3e6797d131ba5469a08bf0eedfa7df, type: 2}
+  upgradePool: {fileID: 11400000, guid: 2a90799fe3dec504ebdc5932447e0146, type: 2}
+  audioBank: {fileID: 11400000, guid: df9f8037eb099fb459872e18994b9021, type: 2}
+  stackGroupPrefab: {fileID: 2945079107846993636, guid: cff2a6653c9302349a53b9e5c415f8b6, type: 3}
+  bossPrefab: {fileID: 2768162021957432470, guid: ebea17ab3ea83724fb75368abe4d4f5a, type: 3}
+  targetFrameRate: 60
