@@ -10,6 +10,7 @@ namespace StackAttack.Core
         [SerializeField] private Vector2 plateSize = new Vector2(1f, 1f);
         [SerializeField] private float plateStep = 0.1f;
         [SerializeField] private int contactDamage = 1;
+        [SerializeField] private int maxPlates = 15;
 
         [SerializeField] private float hitFlashDuration = 0.12f;
         [SerializeField] private float hitFlashStrength = 0.8f;
@@ -21,6 +22,7 @@ namespace StackAttack.Core
         public Vector2 PlateSize => plateSize;
         public float PlateStep => plateStep;
         public int ContactDamage => contactDamage;
+        public int MaxPlates => maxPlates;
         public float HitFlashDuration => hitFlashDuration;
         public float HitFlashStrength => hitFlashStrength;
         public float HitPunchScale => hitPunchScale;

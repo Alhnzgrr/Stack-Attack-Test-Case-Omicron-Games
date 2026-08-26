@@ -6,7 +6,8 @@ namespace StackAttack.Core
     {
         Single,
         Row,
-        Ring
+        Ring,
+        Cluster
     }
 
     public enum GroupMotion

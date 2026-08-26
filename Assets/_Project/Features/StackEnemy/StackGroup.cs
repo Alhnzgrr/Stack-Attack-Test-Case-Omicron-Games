@@ -134,23 +134,8 @@ namespace StackAttack.StackEnemy
             for (int i = 0; i < _baseOffsets.Length; i++)
                 _baseOffsets[i] = Vector3.zero;
 
-            if (entry.layout == GroupLayout.Row)
-            {
-                float start = -(memberCount - 1) * 0.5f * entry.spacing;
-
-                for (int i = 0; i < memberCount; i++)
-                    _baseOffsets[i] = new Vector3(start + i * entry.spacing, 0f, 0f);
-            }
-            else if (entry.layout == GroupLayout.Ring)
-            {
-                float step = 360f / memberCount;
-
-                for (int i = 0; i < memberCount; i++)
-                {
-                    float radians = step * i * Mathf.Deg2Rad;
-                    _baseOffsets[i] = new Vector3(Mathf.Cos(radians), Mathf.Sin(radians), 0f) * entry.radius;
-                }
-            }
+            for (int i = 0; i < memberCount; i++)
+                _baseOffsets[i] = StackGroupGeometry.MemberOffset(entry, i, memberCount);
         }
 
     }

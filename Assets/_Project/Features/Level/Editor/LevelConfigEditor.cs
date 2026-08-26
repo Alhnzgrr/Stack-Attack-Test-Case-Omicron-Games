@@ -9,12 +9,14 @@ namespace StackAttack.Level
     {
         private SerializedProperty _levelLength;
         private SerializedProperty _scrollSpeed;
+        private SerializedProperty _upgradeCostScale;
         private SerializedProperty _entries;
 
         private void OnEnable()
         {
             _levelLength = serializedObject.FindProperty("levelLength");
             _scrollSpeed = serializedObject.FindProperty("scrollSpeed");
+            _upgradeCostScale = serializedObject.FindProperty("upgradeCostScale");
             _entries = serializedObject.FindProperty("entries");
         }
 
@@ -24,6 +26,7 @@ namespace StackAttack.Level
 
             EditorGUILayout.PropertyField(_levelLength);
             EditorGUILayout.PropertyField(_scrollSpeed);
+            EditorGUILayout.PropertyField(_upgradeCostScale);
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Entries: " + _entries.arraySize, EditorStyles.boldLabel);
@@ -89,7 +92,7 @@ namespace StackAttack.Level
                 EditorGUILayout.PropertyField(count);
                 EditorGUILayout.PropertyField(spacing);
             }
-            else if (layoutValue == GroupLayout.Ring)
+            else if (layoutValue == GroupLayout.Ring || layoutValue == GroupLayout.Cluster)
             {
                 EditorGUILayout.PropertyField(count);
                 EditorGUILayout.PropertyField(radius);
@@ -114,8 +117,19 @@ namespace StackAttack.Level
             if (type == null || type.HitsPerPlate <= 0)
                 return;
 
-            int plates = Mathf.CeilToInt(hp.intValue / (float)type.HitsPerPlate);
+            int requested = Mathf.CeilToInt(hp.intValue / (float)type.HitsPerPlate);
+            int plates = Mathf.Min(requested, type.MaxPlates);
+
             EditorGUILayout.LabelField("Plates", plates.ToString());
+
+            if (requested <= type.MaxPlates)
+                return;
+
+            EditorGUILayout.HelpBox(
+                "Hp " + hp.intValue + " asks for " + requested + " plates but this stack tops out at "
+                + type.MaxPlates + ". Damage past " + type.MaxPlates * type.HitsPerPlate
+                + " breaks no plate, so it scores nothing and throws no shards.",
+                MessageType.Warning);
         }
 
         private void SortByDistance()

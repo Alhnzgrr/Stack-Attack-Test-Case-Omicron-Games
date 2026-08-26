@@ -35,7 +35,8 @@ namespace StackAttack.StackEnemy
             _type = stackType;
             _score = score;
             _shards = shards;
-            _health = new StackHealth(hp, stackType.HitsPerPlate, _plates.Length);
+            // The prefab is the hard ceiling; the config can only ask for less.
+            _health = new StackHealth(hp, stackType.HitsPerPlate, Mathf.Min(stackType.MaxPlates, _plates.Length));
             _feedback = new HitFeedback(
                 stackType.HitFlashDuration,
                 stackType.HitFlashStrength,

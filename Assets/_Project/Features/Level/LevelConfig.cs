@@ -9,10 +9,12 @@ namespace StackAttack.Level
     {
         [SerializeField] private float levelLength = 100f;
         [SerializeField] private float scrollSpeed = 3f;
+        [SerializeField] private float upgradeCostScale = 1f;
         [SerializeField] private List<StackGroupEntry> entries = new List<StackGroupEntry>();
 
         public float LevelLength => levelLength;
         public float ScrollSpeed => scrollSpeed;
+        public float UpgradeCostScale => upgradeCostScale;
         public List<StackGroupEntry> Entries => entries;
 
         // Sorting while the entries are being typed would reorder the list on every
